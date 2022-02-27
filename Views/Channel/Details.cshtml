@@ -1,0 +1,39 @@
+﻿@model TVGuide.Models.ViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Html.DisplayFor(model => model.channel.name)</h1>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.channel.website)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.channel.website)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.channel.logo)
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="@Html.DisplayFor(model => model.channel.logo)" />
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@foreach(Program program in Model.programs) {
+    <h3>@program.Title</h3>
+    <p><b>@program.Start - @program.Stop</b></p>
+    <img src="@program.Image" />
+    <p>@program.Category</p>
+    <p>@program.Description</p>
+    <hr />
+}
