@@ -9,7 +9,7 @@ namespace TVGuide.Models
         XDocument document;
         public ChannelRepository()
         {
-            string uri = "https://iptv-org.github.io/epg/guides/eg-ar/elcinema.com.epg.xml";
+            string uri = "https://iptv-org.github.io/epg/guides/fr/programme-tv.net.epg.xml";
             this.document = XDocument.Load(uri);
         }
 
@@ -19,14 +19,27 @@ namespace TVGuide.Models
             Channel channel = new Channel(
                channelId,
                xeChannel.Element("display-name").Value,
-               xeChannel.Element("url").Value,
-               xeChannel.Element("icon").Attribute("src").Value);
+               xeChannel.Element("icon").Attribute("src").Value); 
             return channel;
         }
 
-        public IEnumerable<Channel> getChannels()
+        public List<Channel> getChannels()
         {
-            throw new NotImplementedException();
+            IEnumerable<XElement> xeChannels = document.Root.Elements("channel");
+            List<Channel> channels = new List<Channel>();
+            
+
+            foreach (XElement xeChannel in xeChannels)
+            {
+                Channel channel = new Channel(
+                    xeChannel.Attribute("id").Value,
+                    xeChannel.Element("display-name").Value,
+                    xeChannel.Element("icon").Attribute("src").Value
+                    );
+
+                channels.Add(channel);
+            }
+            return channels;
         }
 
         public Program getProgram(string programTitle)
@@ -50,7 +63,7 @@ namespace TVGuide.Models
                 title = xeProgram.Element("title") != null ? xeProgram.Element("title").Value : string.Empty;
                 desc = xeProgram.Element("desc") != null ? xeProgram.Element("desc").Value : string.Empty;
                 category = xeProgram.Element("category") != null ? xeProgram.Element("category").Value : string.Empty;
-                image = xeProgram.Element("icon").Attribute("src") != null ? xeProgram.Element("icon").Attribute("src").Value : string.Empty;
+                image = xeProgram.Element("icon") != null ? xeProgram.Element("icon").Attribute("src").Value : string.Empty;
 
                 Program program = new Program(start, stop, title, desc, category, image);
 

@@ -15,10 +15,10 @@ namespace TVGuide.Controllers
         // GET: ChannelController
         public ActionResult Index()
         {
-            return View();
+            List<Channel> channels = channelRepository.getChannels().ToList();
+            return View(channels);
         }
 
-        // GET: ChannelController/Details/5
         public ActionResult Details(string id)
         {
             Models.ViewModel viewModel = new ViewModel();
@@ -27,67 +27,5 @@ namespace TVGuide.Controllers
             return View(viewModel);
         }
 
-        // GET: ChannelController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ChannelController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ChannelController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ChannelController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ChannelController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ChannelController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
