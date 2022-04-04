@@ -2,16 +2,13 @@
 {
     public class Channel
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string logo { get; set; }
-
-        public Channel(string id, string name, string logo)
-        {
-            this.id = id;
-            this.name = name;
-            this.logo = logo;
-        }
+        public string Id { get; set; }
+        public int Position { get; set; }
+        public string Name { get; set; }
+        public string Logo { get; set; }
+        public string IdXML { get; set; }
+        public string Category { get; set; }
+        public string Package { get; set; }
 
     }
 }

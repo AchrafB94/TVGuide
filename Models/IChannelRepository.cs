@@ -3,8 +3,9 @@
     public interface IChannelRepository
     {
         Channel getChannel(string channelId);
-        List<Channel> getChannels();
-        List<Program> getPrograms(string channelId);
-        Program getProgram(string programTitle);
+        List<Channel> getAllChannels();
+        List<Channel> getChannelsByPackage(string package);
+        List<Channel> getChannelsByCategory(string category);
+        List<Channel> getChannelsByPositions(int start, int end);
     }
 }
