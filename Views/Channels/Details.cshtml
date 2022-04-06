@@ -17,12 +17,11 @@
     <p>@programme.Start.TimeOfDay - @programme.Stop.TimeOfDay</p>
     if(@programme.Start < DateTime.Now && DateTime.Now < (@programme.Stop))
     {
-        string valuenow = DateTime.Now.ToString("hh") + DateTime.Now.ToString("mm");
-        string valuemin = @programme.Start.ToString("hh") +@programme.Start.ToString("mm");
-        string valuemax = @programme.Stop.ToString("hh") + @programme.Stop.ToString("mm");
+        int valuenow = (@programme.Stop - DateTime.Now).Minutes;
+        int valuemax = (@programme.Stop - @programme.Start).Minutes;
         
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="@valuenow" aria-valuemin="@valuemin" aria-valuemax="@valuemax"></div>
+            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="@valuenow" aria-valuemin="0" aria-valuemax="@valuemax"></div>
         </div>
     }
     <p>@programme.Category</p>

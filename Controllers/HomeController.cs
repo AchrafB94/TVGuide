@@ -7,15 +7,23 @@ namespace TVGuide.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IChannelRepository _channelRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IChannelRepository channelRepository)
         {
+            _channelRepository = channelRepository;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string search)
         {
-            return View();
+            if (string.IsNullOrEmpty(search))
+                return View();
+            else
+            {
+                List<Programme> programmes = _channelRepository.GetProgrammesByNameAndDescription(search);
+                return View(programmes);
+            }
         }
 
         public IActionResult Privacy()
