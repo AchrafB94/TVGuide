@@ -2,7 +2,7 @@
 {
     public interface IProgrammeRepository
     {
-        List<Programme> GetProgrammesByChannel(int IdXMLChannel);
+        List<Programme> GetProgrammesByChannel(string IdXMLChannel, string XML);
 
         Programme GetCurrentProgram(int IdXMLChannel);
 
