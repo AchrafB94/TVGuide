@@ -1,60 +1,32 @@
-﻿@model TVGuide.Models.Channel
+﻿@model TVGuide.Models.ViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Channel Page";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>Channel</h4>
+<h1>@Model.channel.Name</h1>
+<img src="@Model.channel.Logo" style="height: 150px;" />
+
+
+<h2>Programme of the day - @DateTime.Today.ToString("dd-MM-yyyy")</h2>
+
+@foreach(Programme programme in Model.programs) 
+{
+    <h3>@programme.Title</h3>
+    <p>@programme.Start.TimeOfDay - @programme.Stop.TimeOfDay</p>
+    if(@programme.Start < DateTime.Now && DateTime.Now < (@programme.Stop))
+    {
+        string valuenow = DateTime.Now.ToString("hh") + DateTime.Now.ToString("mm");
+        string valuemin = @programme.Start.ToString("hh") +@programme.Start.ToString("mm");
+        string valuemax = @programme.Stop.ToString("hh") + @programme.Stop.ToString("mm");
+        
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="@valuenow" aria-valuemin="@valuemin" aria-valuemax="@valuemax"></div>
+        </div>
+    }
+    <p>@programme.Category</p>
+    <img src="@programme.Image" class="img-thumbnail" style="width: 200px;"/>
+    <p>@programme.Description</p>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Position)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Position)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Logo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Logo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdXML)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdXML)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Package)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Package)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.XML)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.XML)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+}

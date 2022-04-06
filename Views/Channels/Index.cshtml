@@ -1,53 +1,17 @@
 ﻿@model IEnumerable<TVGuide.Models.Channel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All Channels";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Logo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Package)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="thumbnails">
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <img src="@Html.DisplayFor(modelItem => item.Logo)" style="width: 75px;"/>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Package)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+    <div class="thumbnail">
+           <a asp-action="Details" asp-route-id="@item.Id">     <img src="@Html.DisplayFor(modelItem => item.Logo)" alt="Element1" style="width: 75px;" /></a>
+    </div>
+}</div>
+
+<style>
+.thumbnails {text-align: center;}
+.thumbnails .thumbnail {display: inline-block; margin: 0 5px;}
+</style>
