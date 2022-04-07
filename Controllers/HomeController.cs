@@ -17,13 +17,13 @@ namespace TVGuide.Controllers
 
         public IActionResult Index(string search)
         {
-            if (string.IsNullOrEmpty(search))
-                return View();
-            else
+            if(!string.IsNullOrEmpty(search) && search.Length > 3)
             {
                 List<Programme> programmes = _channelRepository.GetProgrammesByNameAndDescription(search);
                 return View(programmes);
             }
+            else
+                return View();
         }
 
         public IActionResult Privacy()
