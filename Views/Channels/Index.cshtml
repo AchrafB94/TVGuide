@@ -8,7 +8,7 @@
 @foreach (var item in Model) {
 
     <div class="thumbnail">
-           <a asp-action="Details" asp-route-id="@item.Id">     <img src="@Html.DisplayFor(modelItem => item.Logo)" alt="Element1" style="width: 75px;" /></a>
+           <a asp-action="Details" asp-route-id="@item.Id">     <img src="@Html.DisplayFor(modelItem => item.Logo)" class="container" style="width:100px;"/></a>
     </div>
 }</div>
 
