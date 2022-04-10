@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TVGuide.Models.Channel>
+@{
+    ViewData["Title"] = "Package";
+}
+
+<h1>Package</h1>
+
+<center><h1>All Channels</h1></center>
+<div class="thumbnails">
+@foreach (var item in Model) {
+    <a asp-action="Details" asp-route-id="@item.Id">
+    <figure class="figure">
+          <img src="@Html.DisplayFor(modelItem => item.Logo)" class="figure-img img-fluid rounded" alt="logo" style="width:100px;">
+          <figcaption class="figure-caption">@item.Name</figcaption>
+    </figure>
+    </a>
+}</div>
+
+<style>
+.thumbnails {text-align: center;}
+.thumbnails .thumbnail {display: inline-block; margin: 0 5px;}
+</style>

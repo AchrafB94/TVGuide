@@ -6,10 +6,12 @@
 <center><h1>All Channels</h1></center>
 <div class="thumbnails">
 @foreach (var item in Model) {
-
-    <div class="thumbnail">
-           <a asp-action="Details" asp-route-id="@item.Id">     <img src="@Html.DisplayFor(modelItem => item.Logo)" class="container" style="width:100px;"/></a>
-    </div>
+   
+    <figure class="figure">
+         <a asp-action="Details" asp-route-id="@item.Id">
+          <img src="@Html.DisplayFor(modelItem => item.Logo)" class="thumbnail figure-img img-fluid rounded" alt="@item.Name" style="width:100px;">
+         </a>
+    </figure>
 }</div>
 
 <style>

@@ -4,28 +4,34 @@
     ViewData["Title"] = "Channel Page";
 }
 
-
+<center>
+<img src="@Model.channel.Logo" style="height: 100%;"/>
 <h1>@Model.channel.Name</h1>
-<img src="@Model.channel.Logo" style="height: 150px;" />
-
-
-<h2>Programme of the day - @DateTime.Today.ToString("dd-MM-yyyy")</h2>
+</center>
+<br />
+<h2>Programme of the day - @DateTime.Today.ToString("dddd dd MMMM yyyy")</h2>
+<hr/>
+<div class="container">
 
 @foreach(Programme programme in Model.programs) 
 {
-    <h3>@programme.Title</h3>
-    <p>@programme.Start.TimeOfDay - @programme.Stop.TimeOfDay</p>
-    if(@programme.Start < DateTime.Now && DateTime.Now < (@programme.Stop))
+        @if(@programme.Start < DateTime.Now && DateTime.Now < (@programme.Stop))
     {
         int valuenow = (@programme.Stop - DateTime.Now).Minutes;
         int valuemax = (@programme.Stop - @programme.Start).Minutes;
-        
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="@valuenow" aria-valuemin="0" aria-valuemax="@valuemax"></div>
-        </div>
     }
+        <div class="row">
+    <div class="col-10">
+    <p style="color: red; font-weight: bold;">@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</p>
+            <h3>@programme.Title</h3>
     <p>@programme.Category</p>
-    <img src="@programme.Image" class="img-thumbnail" style="width: 200px;"/>
-    <p>@programme.Description</p>
+    <p style="color: #5b5b5b">@programme.Description</p>
+    </div>
+    <div class="col-2">
+    <img src="@programme.Image" style="width: 100px;float: right;"/>
+    </div>
+    </div>
     <hr />
 }
+
+</div>

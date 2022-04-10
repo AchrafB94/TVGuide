@@ -6,9 +6,9 @@ public class ChannelRepository : IChannelRepository
 {
     private readonly ChannelContext _context;
     public static XDocument xdElCinema = XDocument.Load("https://iptv-org.github.io/epg/guides/eg-en/elcinema.com.epg.xml");
-    public static XDocument xdTVBlue = XDocument.Load("https://iptv-org.github.io/epg/guides/ch/tv.blue.ch.epg.xml");
-    public static XDocument xdProgrammeTV = XDocument.Load("https://iptv-org.github.io/epg/guides/fr/programme-tv.net.epg.xml");
-    public static XDocument xdOSN = XDocument.Load("https://iptv-org.github.io/epg/guides/dz-ar/osn.com.epg.xml");
+    public static XDocument xdTVBlue = new XDocument(); // XDocument.Load("https://iptv-org.github.io/epg/guides/ch/tv.blue.ch.epg.xml");
+    public static XDocument xdProgrammeTV = new XDocument(); // XDocument.Load("https://iptv-org.github.io/epg/guides/fr/programme-tv.net.epg.xml");
+    public static XDocument xdOSN =  new XDocument(); //XDocument.Load("https://iptv-org.github.io/epg/guides/dz-ar/osn.com.epg.xml");
     
     public ChannelRepository(ChannelContext appDbContext)
     {
@@ -78,7 +78,7 @@ public class ChannelRepository : IChannelRepository
     public List<Programme> GetProgrammesByNameAndDescription(string query)
     {
         List<Programme> list = new List<Programme>();
-        List<XElement> xeList = xdElCinema.Root.Descendants("programme").Where(prg => prg.Attribute("title") != null && prg.Attribute("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).ToList();
+        List<XElement> xeList = xdElCinema.Root.Descendants("programme").Where(prg => prg.Attribute("title") != null && prg.Attribute("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList();
         foreach (XElement xeProgramme in xeList)
         {
             string IdXMLChannel = xeProgramme.Attribute("channel").Value;
