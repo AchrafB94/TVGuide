@@ -6,29 +6,23 @@
 
 <center>
 <img src="@Model.channel.Logo" style="height: 100%;"/>
-<h1>@Model.channel.Name</h1>
 </center>
 <br />
-<h2>Programme of the day - @DateTime.Today.ToString("dddd dd MMMM yyyy")</h2>
 <hr/>
 <div class="container">
 
 @foreach(Programme programme in Model.programs) 
 {
-        @if(@programme.Start < DateTime.Now && DateTime.Now < (@programme.Stop))
-    {
-        int valuenow = (@programme.Stop - DateTime.Now).Minutes;
-        int valuemax = (@programme.Stop - @programme.Start).Minutes;
-    }
-        <div class="row">
+    <div class="row">
     <div class="col-10">
-    <p style="color: red; font-weight: bold;">@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</p>
-            <h3>@programme.Title</h3>
-    <p>@programme.Category</p>
-    <p style="color: #5b5b5b">@programme.Description</p>
+        <p>@programme.Start.ToString("dddd dd MMMM yyyy")</p>
+        <p style="color: red; font-weight: bold;">@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</p>
+                <h3>@programme.Title</h3>
+        <p>@programme.Category</p>
+        <p style="color: #5b5b5b">@programme.Description</p>
     </div>
     <div class="col-2">
-    <img src="@programme.Image" style="width: 100px;float: right;"/>
+        <img src="@programme.Image" style="width: 100px;float: right;"/>
     </div>
     </div>
     <hr />

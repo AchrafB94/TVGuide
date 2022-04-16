@@ -6,9 +6,9 @@ public class ChannelRepository : IChannelRepository
 {
     private readonly ChannelContext _context;
     public static XDocument xdElCinema = XDocument.Load("https://iptv-org.github.io/epg/guides/eg-en/elcinema.com.epg.xml");
-    public static XDocument xdTVBlue = new XDocument(); // XDocument.Load("https://iptv-org.github.io/epg/guides/ch/tv.blue.ch.epg.xml");
-    public static XDocument xdProgrammeTV = new XDocument(); // XDocument.Load("https://iptv-org.github.io/epg/guides/fr/programme-tv.net.epg.xml");
-    public static XDocument xdOSN =  new XDocument(); //XDocument.Load("https://iptv-org.github.io/epg/guides/dz-ar/osn.com.epg.xml");
+    public static XDocument xdTVBlue = XDocument.Load("https://iptv-org.github.io/epg/guides/ch/tv.blue.ch.epg.xml");
+    public static XDocument xdProgrammeTV = XDocument.Load("https://iptv-org.github.io/epg/guides/fr/programme-tv.net.epg.xml");
+    public static XDocument xdOSN =  XDocument.Load("https://iptv-org.github.io/epg/guides/dz-ar/osn.com.epg.xml");
     
     public ChannelRepository(ChannelContext appDbContext)
     {
@@ -48,9 +48,9 @@ public class ChannelRepository : IChannelRepository
 
         switch (XML)
         {
-            case "TVBlue": xeProgrammes = xdTVBlue.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList(); break;
-            case "ElCinema": xeProgrammes = xdElCinema.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList(); break;
-            case "ProgrammeTV": xeProgrammes = xdProgrammeTV.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList(); break;
+            case "TVBlue": xeProgrammes = xdTVBlue.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel && prg.Attribute("start").Value.Contains(DateTime.Today.ToString("yyyyMMdd"))).ToList(); break;
+            case "ElCinema": xeProgrammes = xdElCinema.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel && prg.Attribute("start").Value.Contains(DateTime.Today.ToString("yyyyMMdd"))).ToList(); break;
+            case "ProgrammeTV": xeProgrammes = xdProgrammeTV.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel && prg.Attribute("start").Value.Contains(DateTime.Today.ToString("yyyyMMdd"))).ToList(); break;
             case "OSN": xeProgrammes = xdOSN.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList(); break;
         }
 

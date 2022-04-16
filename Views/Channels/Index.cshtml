@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<TVGuide.Models.Channel>
 
 @{
-    ViewData["Title"] = "All Channels";
+    ViewData["Title"] = "Channels";
 }
-<center><h1>All Channels</h1></center>
 <div class="thumbnails">
 @foreach (var item in Model) {
    
-    <figure class="figure">
+    <figure class="figure" style="width:70px;height:70px;">
          <a asp-action="Details" asp-route-id="@item.Id">
-          <img src="@Html.DisplayFor(modelItem => item.Logo)" class="thumbnail figure-img img-fluid rounded" alt="@item.Name" style="width:100px;">
+          <img src="@Html.DisplayFor(modelItem => item.Logo)" class="thumbnail figure-img img-fluid rounded" alt="@item.Name">
          </a>
     </figure>
 }</div>
