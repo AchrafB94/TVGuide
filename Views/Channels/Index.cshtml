@@ -8,12 +8,7 @@
    
     <figure class="figure" style="width:70px;height:70px;">
          <a asp-action="Details" asp-route-id="@item.Id">
-          <img src="@Html.DisplayFor(modelItem => item.Logo)" class="thumbnail figure-img img-fluid rounded" alt="@item.Name">
+          <img src="@item.Logo" class="figure-img img-fluid rounded" alt="@item.Name">
          </a>
     </figure>
 }</div>
-
-<style>
-.thumbnails {text-align: center;}
-.thumbnails .thumbnail {display: inline-block; margin: 0 5px;}
-</style>

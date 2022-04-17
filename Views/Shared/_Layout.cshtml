@@ -21,19 +21,44 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">All Channels</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-package="Tunisia" >National TV</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index"><b>All Channels</b></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-package="OSN" ><img src="https://www.osn.com/osn/media/OSNMedia/Images/new-base/logo.svg" /></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-package="Canal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Canal%2B.svg/220px-Canal%2B.svg.png" height="20" /></a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-package="Canal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Canal%2B.svg/1920px-Canal%2B.svg.png" height="30" /></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-package="bein"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/BeIN_Sports.png" height="30" /></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Series</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Sport</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Documentaries</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Kids</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Music</a>
                         </li>
                     </ul>
                 </div>
+                 <form class="form-inline my-2 my-lg-0 d-sm-inline-flex justify-content-between">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Find a programme" aria-label="Search">
+                  <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+                </form>
             </div>
         </nav>
     </header>
@@ -45,7 +70,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - TVGuide - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Starsat TV Guide - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
