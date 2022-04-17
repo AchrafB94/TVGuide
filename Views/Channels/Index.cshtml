@@ -3,12 +3,7 @@
 @{
     ViewData["Title"] = "Channels";
 }
-<div class="thumbnails">
+<center>
 @foreach (var item in Model) {
-   
-    <figure class="figure" style="width:70px;height:70px;">
-         <a asp-action="Details" asp-route-id="@item.Id">
-          <img src="@item.Logo" class="figure-img img-fluid rounded" alt="@item.Name">
-         </a>
-    </figure>
-}</div>
+    <a asp-action="Details" asp-route-id="@item.Id"><img src="@item.Logo" style="max-width: 100px; max-height: 100px;" alt="@item.Name"></a>
+}</center>

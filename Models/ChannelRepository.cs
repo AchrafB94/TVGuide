@@ -33,17 +33,51 @@ public class ChannelRepository : IChannelRepository
     {
         return _context.Channels.Where(ch => ch.Package == package).ToList();
     }
-    public List<Channel> getChannelsByPositions(int start, int end)
+    public List<Programme> GetCurrentProgrammes()
     {
-        throw new NotImplementedException();
-    }
-    public Programme GetCurrentProgram(int IdXMLChannel)
-    {
-        throw new NotImplementedException();
+        List<Programme> list = new List<Programme>();
+        List<string> ChannelXMLIds = _context.Channels.Select(ch => ch.IdXML).ToList();
+
+
+        List<XElement> xeList = new List<XElement>();
+        xeList.AddRange(xdElCinema.Root.Descendants("programme").Where(prg => ChannelXMLIds.Contains(prg.Attribute("channel").Value)).ToList());
+        xeList.AddRange(xdOSN.Root.Descendants("programme").Where(prg => ChannelXMLIds.Contains(prg.Attribute("channel").Value)).ToList());
+        xeList.AddRange(xdProgrammeTV.Root.Descendants("programme").Where(prg => ChannelXMLIds.Contains(prg.Attribute("channel").Value)).ToList());
+        xeList.AddRange(xdTVBlue.Root.Descendants("programme").Where(prg => ChannelXMLIds.Contains(prg.Attribute("channel").Value)).ToList());
+
+
+        foreach (XElement xeProgramme in xeList)
+        {
+            string start = xeProgramme.Attribute("start").Value;
+            start = $"{start.Substring(0, 4)}-{start.Substring(4, 2)}-{start.Substring(6, 2)} {start.Substring(8, 2)}:{start.Substring(10, 2)}:00";
+            DateTime startTime = Convert.ToDateTime(start);
+            string stop = xeProgramme.Attribute("stop").Value;
+            stop = $"{stop.Substring(0, 4)}-{stop.Substring(4, 2)}-{stop.Substring(6, 2)} {stop.Substring(8, 2)}:{stop.Substring(10, 2)}:00";
+            DateTime stopTime = Convert.ToDateTime(stop);
+
+            DateTime testdate = new DateTime(2022, 04, 16, 17, 30, 00);
+            if(startTime <= testdate && testdate < stopTime)
+            {
+                string title = xeProgramme.Element("title") != null ? xeProgramme.Element("title").Value : string.Empty;
+                string desc = xeProgramme.Element("desc") != null ? xeProgramme.Element("desc").Value : string.Empty;
+                string category = xeProgramme.Element("category") != null ? xeProgramme.Element("category").Value : string.Empty;
+                string image = xeProgramme.Element("icon") != null ? xeProgramme.Element("icon").Attribute("src").Value : string.Empty;
+
+                string IdXMLChannel = xeProgramme.Attribute("channel").Value;
+                Channel programChannel = _context.Channels.Where(ch => ch.IdXML == IdXMLChannel).FirstOrDefault();
+
+                Programme programme = new Programme(startTime, stopTime, title, desc, category, image, programChannel);
+                list.Add(programme);
+            }
+        }
+        list = list.OrderBy(prg => prg.Channel.Position).ToList();
+        list = list.DistinctBy(prg => prg.Channel.IdXML).ToList();
+        return list;
     }
 
     public List<Programme> GetProgrammesByChannel(string IdXMLChannel, string XML)
     {
+        List<Programme> list = new List<Programme>();
         List<XElement> xeProgrammes = new List<XElement>();
 
         switch (XML)
@@ -54,7 +88,6 @@ public class ChannelRepository : IChannelRepository
             case "OSN": xeProgrammes = xdOSN.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList(); break;
         }
 
-        List<Programme> list = new List<Programme>();
 
         foreach (XElement xeProgramme in xeProgrammes)
         {
@@ -106,6 +139,7 @@ public class ChannelRepository : IChannelRepository
                 list.Add(programme);
             }
         }
+        list = list.OrderBy(prg => prg.Start).ToList();
         return list;
     }
 }

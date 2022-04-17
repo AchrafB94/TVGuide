@@ -4,34 +4,32 @@
 }
 
 
+<h1>Welcome to the StarSat TV Guide</h1>
+<p>Consult your TV program of this day and find out which TV shows are available on StarSat satellite receivers in Tunisia and North Africa that use sharing servers such as Forever, GShare, Vanilla and FunCam.</p>
 
 
-@if(Model != null && Model.Count > 0) 
-{
-    <h2>Search results:</h2>
-    <table class="table table-hover">
-        <thead>
+
+<h2>Now on TV</h2>
+<table class="table table-hover">
+    <tbody>
+        @foreach(Programme programme in Model)
+        {
+                        DateTime testdate = new DateTime(2022, 04, 16, 17, 30, 00);
+         int programLength = (@programme.Stop - @programme.Start).Minutes;            int programProgress = (testdate - @programme.Start).Minutes;
+            double percentage = 0;
+            if(programLength > 0)   
+                percentage = programProgress * 100 / programLength;
+
             <tr>
-                <th scope="col">Channel</th>
-                <th scope="col">Day</th>
-                <th scope="col">Time</th>
-                <th scope="col">Programme</th>
-                <th scope="col">Category</th>
-                <th scope="col">Description</th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach(Programme prg  in Model) 
-    {
-        <tr>
-            <td><img src="@prg.Channel.Logo" width="65"/></td>
-            <td>@prg.Start.ToString("dddd dd MMMM")</td>
-            <td scope="row"><p>@prg.Start.ToString("hh:mm")</p></td>
-            <td>@prg.Title</td>
-            <td>@prg.Category</td>
-            <td>@prg.Description</td>
+            <td><img src="@programme.Channel.Logo" width="35"/> @programme.Channel.Name</td>
+            <td>@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm") - <b>@programme.Title</b></td>
+            <td scope="row">
+                                <div class="progress" style="width: 500px; height: 5px">
+                  <div class="progress-bar bg-danger" role="progressbar" style="width: @percentage%;"></div>
+                </div>
+            </td>
         </tr>
-    }
+        }
     </tbody>
-    </table>
-} 
+</table>
+

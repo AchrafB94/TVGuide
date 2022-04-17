@@ -12,11 +12,13 @@ namespace TVGuide.Controllers
             _channelRepository = channelRepository;
         }
 
-        public IActionResult Index(string package)
+        public IActionResult Index(string package, string category)
         {
             List<Channel> channels;
             if(package != null)
                 channels = _channelRepository.getChannelsByPackage(package);
+            else if(category != null)
+                channels = _channelRepository.getChannelsByCategory(category);
             else
                 channels = _channelRepository.getAllChannels();
             return View(channels);

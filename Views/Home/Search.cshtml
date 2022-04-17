@@ -1,0 +1,31 @@
+﻿@model List<Programme>
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Search results:</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Channel</th>
+                <th scope="col">Day</th>
+                <th scope="col">Time</th>
+                <th scope="col">Programme</th>
+                <th scope="col">Category</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach(Programme prg  in Model) 
+    {
+        <tr>
+            <td><img src="@prg.Channel.Logo" width="65"/></td>
+            <td>@prg.Start.ToString("dddd dd MMMM")</td>
+            <td scope="row"><p>@prg.Start.ToString("hh:mm")</p></td>
+            <td>@prg.Title</td>
+            <td>@prg.Category</td>
+            <td>@prg.Description</td>
+        </tr>
+    }
+    </tbody>
+    </table>

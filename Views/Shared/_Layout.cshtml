@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TVGuide</title>
+    <title>@ViewData["Title"] - StarSat TV Guide</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TVGuide.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/all.css" />
+    <script src="https://kit.fontawesome.com/38a118d975.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -24,6 +26,27 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index"><b>All Channels</b></a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="Movies"><i class="fa-solid fa-clapperboard"></i> Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="Series"><i class="fa-solid fa-tv"></i> Series</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="Sport"><i class="fa-solid fa-futbol"></i> Sport</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index"asp-route-category="Doc"><i class="fa-solid fa-atom"></i> Documentaries</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="Kids"><i class="fa-solid fa-children"></i> Kids</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="News"><i class="fa-solid fa-newspaper"></i> News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="Music"><i class="fa-solid fa-music"></i> Music</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-package="OSN" ><img src="https://www.osn.com/osn/media/OSNMedia/Images/new-base/logo.svg" /></a>
                         </li>
                         <li class="nav-item">
@@ -32,32 +55,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-package="bein"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/BeIN_Sports.png" height="30" /></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Movies</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Series</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Sport</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Documentaries</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Kids</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">News</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index">Music</a>
-                        </li>
                     </ul>
                 </div>
-                 <form class="form-inline my-2 my-lg-0 d-sm-inline-flex justify-content-between">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Find a programme" aria-label="Search">
-                  <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+                 <form class="form-inline my-2 my-lg-0 d-sm-inline-flex justify-content-between" asp-controller="Home" asp-action="Search">
+                  <input class="form-control mr-sm-2" type="search" name="query" required minlength="4" placeholder="Find a programme" aria-label="Search">
+                  <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
         </nav>

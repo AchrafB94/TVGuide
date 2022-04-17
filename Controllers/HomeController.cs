@@ -15,15 +15,16 @@ namespace TVGuide.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(string search)
+        public IActionResult Search(string query)
         {
-            if(!string.IsNullOrEmpty(search) && search.Length > 3)
-            {
-                List<Programme> programmes = _channelRepository.GetProgrammesByNameAndDescription(search);
+                List<Programme> programmes = _channelRepository.GetProgrammesByNameAndDescription(query);
                 return View(programmes);
-            }
-            else
-                return View();
+        }
+
+        public IActionResult Index()
+        {
+            var programmes = _channelRepository.GetCurrentProgrammes();
+            return View(programmes);
         }
 
         public IActionResult Privacy()
