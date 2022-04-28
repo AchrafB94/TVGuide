@@ -112,10 +112,10 @@ public class ChannelRepository : IChannelRepository
     {
         List<Programme> list = new List<Programme>();
         List<XElement> xeList = new List<XElement>();
-        xeList.AddRange(xdElCinema.Root.Descendants("programme").Where(prg => prg.Attribute("title") != null && prg.Attribute("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList());
-        xeList.AddRange(xdOSN.Root.Descendants("programme").Where(prg => prg.Attribute("title") != null && prg.Attribute("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList());
-        xeList.AddRange(xdProgrammeTV.Root.Descendants("programme").Where(prg => prg.Attribute("title") != null && prg.Attribute("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList());
-        xeList.AddRange(xdTVBlue.Root.Descendants("programme").Where(prg => prg.Attribute("title") != null && prg.Attribute("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList());
+        xeList.AddRange(xdElCinema.Root.Descendants("programme").Where(prg => (prg.Element("title") != null && prg.Element("title").Value.Contains(query)) || (prg.Element("desc") != null && prg.Element("desc").Value.Contains(query))).OrderBy(prg => prg.Attribute("start").Value).ToList());
+        xeList.AddRange(xdOSN.Root.Descendants("programme").Where(prg => prg.Element("title") != null && prg.Element("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList());
+        xeList.AddRange(xdProgrammeTV.Root.Descendants("programme").Where(prg => prg.Element("title") != null && prg.Element("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList());
+        xeList.AddRange(xdTVBlue.Root.Descendants("programme").Where(prg => prg.Element("title") != null && prg.Element("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList());
         
         foreach (XElement xeProgramme in xeList)
         {
