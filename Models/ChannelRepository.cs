@@ -55,8 +55,7 @@ public class ChannelRepository : IChannelRepository
             stop = $"{stop.Substring(0, 4)}-{stop.Substring(4, 2)}-{stop.Substring(6, 2)} {stop.Substring(8, 2)}:{stop.Substring(10, 2)}:00";
             DateTime stopTime = Convert.ToDateTime(stop);
 
-            DateTime testdate = new DateTime(2022, 04, 16, 17, 30, 00);
-            if(startTime <= testdate && testdate < stopTime)
+            if(startTime <= DateTime.Now && DateTime.Now < stopTime)
             {
                 string title = xeProgramme.Element("title") != null ? xeProgramme.Element("title").Value : string.Empty;
                 string desc = xeProgramme.Element("desc") != null ? xeProgramme.Element("desc").Value : string.Empty;
@@ -77,7 +76,6 @@ public class ChannelRepository : IChannelRepository
 
     public List<Programme> GetProgrammesByChannel(string IdXMLChannel, string XML)
     {
-        List<Programme> list = new List<Programme>();
         List<XElement> xeProgrammes = new List<XElement>();
 
         switch (XML)
@@ -88,23 +86,17 @@ public class ChannelRepository : IChannelRepository
             case "OSN": xeProgrammes = xdOSN.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList(); break;
         }
 
+        List<Programme> list =
+        (from programme in xeProgrammes
+         select new Programme { 
+             Start = Convert.ToDateTime($"{programme.Attribute("start").Value.Substring(0, 4)}-{programme.Attribute("start").Value.Substring(4, 2)}-{programme.Attribute("start").Value.Substring(6, 2)} {programme.Attribute("start").Value.Substring(8, 2)}:{programme.Attribute("start").Value.Substring(10, 2)}:00"),
+             Stop = Convert.ToDateTime($"{programme.Attribute("stop").Value.Substring(0, 4)}-{programme.Attribute("stop").Value.Substring(4, 2)}-{programme.Attribute("stop").Value.Substring(6, 2)} {programme.Attribute("stop").Value.Substring(8, 2)}:{programme.Attribute("stop").Value.Substring(10, 2)}:00"),
+             Title = programme.Element("title").Value,
+             Description = programme.Element("desc") != null ? programme.Element("desc").Value : string.Empty,
+             Category = programme.Element("category") != null ? programme.Element("category").Value : string.Empty,
+             Image = programme.Element("icon").Attribute("src") != null ? programme.Element("icon").Attribute("src").Value : string.Empty
+         }).ToList();
 
-        foreach (XElement xeProgramme in xeProgrammes)
-        {
-            string start = xeProgramme.Attribute("start").Value;
-            start = $"{start.Substring(0, 4)}-{start.Substring(4, 2)}-{start.Substring(6, 2)} {start.Substring(8, 2)}:{start.Substring(10, 2)}:00";
-            DateTime startTime = Convert.ToDateTime(start);
-            string stop = xeProgramme.Attribute("stop").Value;
-            stop = $"{stop.Substring(0, 4)}-{stop.Substring(4, 2)}-{stop.Substring(6, 2)} {stop.Substring(8, 2)}:{stop.Substring(10, 2)}:00";
-            DateTime stopTime = Convert.ToDateTime(stop);
-            string title = xeProgramme.Element("title") != null ? xeProgramme.Element("title").Value : string.Empty;
-            string desc = xeProgramme.Element("desc") != null ? xeProgramme.Element("desc").Value : string.Empty;
-            string category = xeProgramme.Element("category") != null ? xeProgramme.Element("category").Value : string.Empty;
-            string image = xeProgramme.Element("icon") != null ? xeProgramme.Element("icon").Attribute("src").Value : string.Empty;
-
-            Programme programme = new Programme(startTime,stopTime,title,desc,category,image);
-            list.Add(programme);
-        }
         return list;
     }
 

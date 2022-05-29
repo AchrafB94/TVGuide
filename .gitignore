@@ -41,6 +41,8 @@ bld/
 # ignore lib font awesome
 wwwroot/lib/font-awesome
 
+wwwroot/xml
+
 # Visual Studio 2017 auto generated files
 Generated\ Files/
 

@@ -9,6 +9,11 @@
         public string Category { get; set; }
         public string Image { get; set; }
         public Channel? Channel { get; set; }
+
+        public Programme()
+        {
+
+        }
         public Programme(DateTime Start, DateTime Stop, string Title, string Description, string Category, string Image)
         {
             this.Start = Start;
