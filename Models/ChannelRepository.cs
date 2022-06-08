@@ -5,14 +5,26 @@ using TVGuide.Models;
 public class ChannelRepository : IChannelRepository
 {
     private readonly ChannelContext _context;
-    public static XDocument xdElCinema = XDocument.Load("wwwroot/xml/elcinema.com.epg.xml");
-    public static XDocument xdTVBlue = XDocument.Load("wwwroot/xml/tv.blue.ch.epg.xml");
-    public static XDocument xdProgrammeTV = XDocument.Load("wwwroot/xml/telecablesat.fr.epg.xml");
-    public static XDocument xdOSN =  XDocument.Load("wwwroot/xml/osn.com.epg.xml");
+    public static XDocument? xdData;
+    private IConfiguration _configuration;
     
-    public ChannelRepository(ChannelContext appDbContext)
+    public ChannelRepository(ChannelContext appDbContext, IConfiguration configuration)
     {
+        _configuration = configuration;
         _context = appDbContext;
+        SetupXMLData();
+    }
+
+    public void SetupXMLData()
+    {
+        var sources = _configuration.GetSection("Sources");
+        xdData = new XDocument(new XElement("tv"));
+        XDocument xdSource;
+        foreach (var source in sources.GetChildren())
+        {
+            xdSource = XDocument.Load("wwwroot/xml/" + source.Value);
+            xdData.Root.Add(xdSource.Root.Elements("programme"));
+        }
     }
     public List<Channel> getAllChannels()
     {
@@ -21,7 +33,7 @@ public class ChannelRepository : IChannelRepository
 
     public Channel getChannel(int channelId)
     {
-        return _context.Channels.Where(ch => ch.Id == channelId).FirstOrDefault();
+        return _context.Channels.Where(ch => ch.Id == channelId).First();
     }
 
     public List<Channel> getChannelsByCategory(string category)
@@ -36,14 +48,11 @@ public class ChannelRepository : IChannelRepository
     public List<Programme> GetCurrentProgrammes()
     {
         List<Programme> list = new List<Programme>();
-        List<string> ChannelXMLIds = _context.Channels.Select(ch => ch.IdXML).ToList();
+        List<string?> ChannelXMLIds = _context.Channels.Select(ch => ch.IdXML).ToList();
 
 
         List<XElement> xeList = new List<XElement>();
-        xeList.AddRange(xdElCinema.Root.Descendants("programme").Where(prg => ChannelXMLIds.Contains(prg.Attribute("channel").Value)).ToList());
-        xeList.AddRange(xdOSN.Root.Descendants("programme").Where(prg => ChannelXMLIds.Contains(prg.Attribute("channel").Value)).ToList());
-        xeList.AddRange(xdProgrammeTV.Root.Descendants("programme").Where(prg => ChannelXMLIds.Contains(prg.Attribute("channel").Value)).ToList());
-        xeList.AddRange(xdTVBlue.Root.Descendants("programme").Where(prg => ChannelXMLIds.Contains(prg.Attribute("channel").Value)).ToList());
+        xeList.AddRange(xdData.Root.Descendants("programme").Where(prg => ChannelXMLIds.Contains(prg.Attribute("channel").Value)).ToList());
 
 
         foreach (XElement xeProgramme in xeList)
@@ -74,17 +83,9 @@ public class ChannelRepository : IChannelRepository
         return list;
     }
 
-    public List<Programme> GetProgrammesByChannel(string IdXMLChannel, string XML)
+    public List<Programme> GetProgrammesByChannel(string IdXMLChannel)
     {
-        List<XElement> xeProgrammes = new List<XElement>();
-
-        switch (XML)
-        {
-            case "TVBlue": xeProgrammes = xdTVBlue.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList(); break;
-            case "ElCinema": xeProgrammes = xdElCinema.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList(); break;
-            case "ProgrammeTV": xeProgrammes = xdProgrammeTV.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList(); break;
-            case "OSN": xeProgrammes = xdOSN.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList(); break;
-        }
+        List<XElement> xeProgrammes = xdData.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList();
 
         List<Programme> list =
         (from programme in xeProgrammes
@@ -94,8 +95,8 @@ public class ChannelRepository : IChannelRepository
              Title = programme.Element("title").Value,
              Description = programme.Element("desc") != null ? programme.Element("desc").Value : string.Empty,
              Category = programme.Element("category") != null ? programme.Element("category").Value : string.Empty,
-             Image = programme.Element("icon").Attribute("src") != null ? programme.Element("icon").Attribute("src").Value : string.Empty
-         }).ToList();
+             Image = programme.Element("icon") != null ? programme.Element("icon").Attribute("src").Value : string.Empty
+         }).Where(prg => prg.Stop < DateTime.Today.AddDays(1)).ToList();
 
         return list;
     }
@@ -103,12 +104,8 @@ public class ChannelRepository : IChannelRepository
     public List<Programme> GetProgrammesByNameAndDescription(string query)
     {
         List<Programme> list = new List<Programme>();
-        List<XElement> xeList = new List<XElement>();
-        xeList.AddRange(xdElCinema.Root.Descendants("programme").Where(prg => (prg.Element("title") != null && prg.Element("title").Value.Contains(query)) || (prg.Element("desc") != null && prg.Element("desc").Value.Contains(query))).OrderBy(prg => prg.Attribute("start").Value).ToList());
-        xeList.AddRange(xdOSN.Root.Descendants("programme").Where(prg => prg.Element("title") != null && prg.Element("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList());
-        xeList.AddRange(xdProgrammeTV.Root.Descendants("programme").Where(prg => prg.Element("title") != null && prg.Element("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList());
-        xeList.AddRange(xdTVBlue.Root.Descendants("programme").Where(prg => prg.Element("title") != null && prg.Element("title").Value.Contains(query) || prg.Element("desc") != null && prg.Element("desc").Value.Contains(query)).OrderBy(prg => prg.Attribute("start").Value).ToList());
-        
+        List<XElement> xeList = xdData.Root.Descendants("programme").Where(prg => (prg.Element("title") != null && prg.Element("title").Value.Contains(query)) || (prg.Element("desc") != null && prg.Element("desc").Value.Contains(query))).OrderBy(prg => prg.Attribute("start").Value).ToList();
+
         foreach (XElement xeProgramme in xeList)
         {
             string IdXMLChannel = xeProgramme.Attribute("channel").Value;

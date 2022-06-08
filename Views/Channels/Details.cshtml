@@ -13,11 +13,10 @@
 
 @foreach(Programme programme in Model.programs) 
 {
+
     <div class="row">
     <div class="col-10">
-        <p style="color: red; font-weight: bold;">@programme.Start.ToString("dddd dd MMMM yyyy")</p>
-        <p style="color: red; font-weight: bold;">@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</p>
-        <h3>@programme.Title</h3>
+        <h3>@programme.Start.ToString("HH:mm") - @programme.Title</h3>
         <p>@programme.Category</p>
         <p style="color: #5b5b5b">@programme.Description</p>
     </div>

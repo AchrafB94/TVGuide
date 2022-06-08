@@ -7,6 +7,6 @@ public interface IChannelRepository
     List<Channel> getChannelsByPackage(string package);
     List<Channel> getChannelsByCategory(string category);
     List<Programme> GetCurrentProgrammes();
-    List<Programme> GetProgrammesByChannel(string IdXMLChannel, string XML);
+    List<Programme> GetProgrammesByChannel(string IdXMLChannel);
     List<Programme> GetProgrammesByNameAndDescription(string query);
 }

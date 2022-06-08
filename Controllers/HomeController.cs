@@ -18,6 +18,7 @@ namespace TVGuide.Controllers
         public IActionResult Search(string query)
         {
                 List<Programme> programmes = _channelRepository.GetProgrammesByNameAndDescription(query);
+                ViewBag.SearchQuery = query;
                 return View(programmes);
         }
 

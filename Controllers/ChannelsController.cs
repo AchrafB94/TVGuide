@@ -28,7 +28,7 @@ namespace TVGuide.Controllers
         {
             ViewModel model = new ViewModel();
             Channel channel = _channelRepository.getChannel(id);
-            model.programs = _channelRepository.GetProgrammesByChannel(channel.IdXML, channel.XML);
+            model.programs = _channelRepository.GetProgrammesByChannel(channel.IdXML);
             model.channel = channel;
             return View(model);
         }
