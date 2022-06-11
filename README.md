@@ -7,7 +7,7 @@ The programmes are loaded from <a href="https://iptv-org.github.io/">IPTV.org's<
 Link to their documentation on GitHub: https://github.com/iptv-org/epg 
 
 
-<h1>Interfaces</h1>
+<h1>User Interfaces</h1>
 <h2>Homepage - Now on TV</h2>
 
 <h2>Search for programmes</h2>
