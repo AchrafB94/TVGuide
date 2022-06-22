@@ -34,6 +34,7 @@ namespace TVGuide.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdXML")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Logo")
@@ -45,20 +46,13 @@ namespace TVGuide.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Package")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
-                    b.Property<string>("XML")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("Position")
-                        .IsUnique();
-
-                    b.HasIndex("XML");
 
                     b.ToTable("Channels");
                 });

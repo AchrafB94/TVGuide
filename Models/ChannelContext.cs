@@ -19,9 +19,6 @@ namespace TVGuide.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
-            modelBuilder.Entity<Channel>().HasIndex(c => c.Position).IsUnique();
-            modelBuilder.Entity<Channel>().HasIndex(c => c.XML);
-
         }
 
         public DbSet<Channel> Channels { get; set; }
