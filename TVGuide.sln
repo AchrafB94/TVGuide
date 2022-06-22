@@ -5,8 +5,6 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TVGuide", "TVGuide.csproj", "{0A1135B1-8CA3-44F7-8CD4-0040FB12A127}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarsatXMLUpdater", "..\StarsatXMLUpdater\StarsatXMLUpdater.csproj", "{D48202EF-EBED-4673-B4EF-8AAF7771E45C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{0A1135B1-8CA3-44F7-8CD4-0040FB12A127}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A1135B1-8CA3-44F7-8CD4-0040FB12A127}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A1135B1-8CA3-44F7-8CD4-0040FB12A127}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D48202EF-EBED-4673-B4EF-8AAF7771E45C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D48202EF-EBED-4673-B4EF-8AAF7771E45C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D48202EF-EBED-4673-B4EF-8AAF7771E45C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D48202EF-EBED-4673-B4EF-8AAF7771E45C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

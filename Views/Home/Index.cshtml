@@ -11,22 +11,36 @@
 
 <h2>Now on TV</h2>
 <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Channel</th>
+            <th>Start</th>
+            <th>-</th>
+            <th>End</th>
+            <th>-</th>
+            <th>Programme</th>
+            <th>Progress</th>
+        </tr>
+    </thead>
     <tbody>
         @foreach(Programme programme in Model)
         {
-         int programLength = (@programme.Stop - @programme.Start).Minutes;            int programProgress = (DateTime.Now - @programme.Start).Minutes;
-            double percentage = 0;
+             double programLength = (@programme.Stop - @programme.Start).TotalMinutes;            
+             double programProgress = (DateTime.Now - @programme.Start).TotalMinutes;
+             double percentage = 0;
             if(programLength > 0)   
                 percentage = programProgress * 100 / programLength;
 
-            <tr>
-            <td><img src="@programme.Channel.Logo" style="max-height: 35px; max-width: 35px;"/> @programme.Channel.Name</td>
+            <tr onclick="location.href='@(Url.Action("Details", "Channels", new { id = @programme.Channel.Id }))'">
+            <td><img src="@programme.Channel.Logo" style="max-height: 35px; max-width: 35px;"/>@programme.Channel.Name</td>
             <td>@programme.Start.ToString("HH:mm") </td>
+            <td>-</td>
             <td>@programme.Stop.ToString("HH:mm") </td>
+            <td>-</td>
             <td><b>@programme.Title</b></td>
 
                         <td scope="row">
-                                <div class="progress" style="width: 300px; height: 5px">
+                                <div class="progress" style="width: 300px; height: 3px">
                   <div class="progress-bar bg-danger" role="progressbar" style="width: @percentage%;"></div>
                 </div>
             </td>

@@ -16,13 +16,17 @@
 
     <div class="row">
     <div class="col-10">
-        <h3>@programme.Start.ToString("HH:mm") - @programme.Title</h3>
+        <p>@programme.Start.ToString("HH:mm") - @programme.Title</p>
         <p>@programme.Category</p>
         <p style="color: #5b5b5b">@programme.Description</p>
     </div>
-    <div class="col-2">
-        <img src="@programme.Image" class="img-thumbnail" style="width: 400px;float: right;"/>
-    </div>
+            @if(!string.IsNullOrEmpty(@programme.Image))
+            {
+                    <div class="col-2">
+                <img src="@programme.Image" class="img-thumbnail" style="width: 400px;float: right;"/>
+            </div>                
+            }
+
     </div>
     <hr />
 }
