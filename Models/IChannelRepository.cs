@@ -9,4 +9,6 @@ public interface IChannelRepository
     List<Programme> GetCurrentProgrammes();
     List<Programme> GetProgrammesByChannel(string IdXMLChannel);
     List<Programme> GetProgrammesByNameAndDescription(string query);
+    Channel getRandomChannel();
+    List<Programme> GetTonightProgrammes(string channelXML);
 }

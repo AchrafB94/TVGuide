@@ -131,4 +131,16 @@ public class ChannelRepository : IChannelRepository
         list = list.OrderBy(prg => prg.Start).ToList();
         return list;
     }
+
+    public Channel getRandomChannel()
+    {
+        var rand = new Random();
+        return _context.Channels.OrderBy(r => Guid.NewGuid()).Take(1).First();
+    }
+
+    public List<Programme> GetTonightProgrammes(string channelXML)
+    {
+        DateTime.Today.AddHours(20);
+        return GetProgrammesByChannel(channelXML).Where(prg => prg.Start >= DateTime.Today.AddHours(20)).Take(4).ToList();
+    }
 }

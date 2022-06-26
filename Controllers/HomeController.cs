@@ -22,10 +22,19 @@ namespace TVGuide.Controllers
                 return View(programmes);
         }
 
-        public IActionResult Index()
+        public IActionResult Now()
         {
             var programmes = _channelRepository.GetCurrentProgrammes();
             return View(programmes);
+        }
+        public IActionResult Index()
+        {
+            Channel randomChannel = _channelRepository.getRandomChannel();
+            List<Programme> tonightProgrammes = _channelRepository.GetTonightProgrammes(randomChannel.IdXML);
+            ViewModel model = new ViewModel();
+            model.channel = randomChannel;
+            model.programs = tonightProgrammes;
+            return View(model);
         }
 
         public IActionResult Privacy()
