@@ -22,7 +22,7 @@
                 <div class="card-block px-2">
                 @foreach(var programme in Model.programs)
                 {
-                <p class="card-text"><b>@programme.Start.ToString("HH:mm") - @programme.Title @programme.Category ? (@programme.Category)</b> @programme.Description</p>                    
+                <p class="card-text"><b>@programme.Start.ToString("HH:mm") - @programme.Title </b> <br /> @programme.Description</p>                    
                 }
                     <a class="btn btn-outline-danger" asp-controller="Channels" asp-action="Details" asp-route-id="@Model.channel.Id">View @Model.channel.Name Programme of the day</a>
                 </div>

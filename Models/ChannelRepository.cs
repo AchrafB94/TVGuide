@@ -6,24 +6,37 @@ public class ChannelRepository : IChannelRepository
 {
     private readonly ChannelContext _context;
     public static XDocument? xdData;
-    private IConfiguration _configuration;
-    
-    public ChannelRepository(ChannelContext appDbContext, IConfiguration configuration)
+    public ChannelRepository(ChannelContext appDbContext)
     {
-        _configuration = configuration;
         _context = appDbContext;
-        SetupXMLData();
     }
 
-    public void SetupXMLData()
+    public static async void SetupXMLData()
     {
-        var sources = _configuration.GetSection("Sources");
         xdData = new XDocument(new XElement("tv"));
         XDocument xdSource;
-        foreach (var source in sources.GetChildren())
+
+        List<string> xmlSources = new List<string>();
+        xmlSources.Add("https://iptv-org.github.io/epg/guides/fr/telecablesat.fr.epg.xml");
+        xmlSources.Add("https://iptv-org.github.io/epg/guides/eg-ar/elcinema.com.epg.xml");
+        xmlSources.Add("https://iptv-org.github.io/epg/guides/qa/bein.com.epg.xml");
+        xmlSources.Add("https://iptv-org.github.io/epg/guides/dz-ar/osn.com.epg.xml");
+
+        foreach(string source in xmlSources)
         {
-            xdSource = XDocument.Load("wwwroot/xml/" + source.Value);
-            xdData.Root.Add(xdSource.Root.Elements("programme"));
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.GetAsync(source, HttpCompletionOption.ResponseHeadersRead);
+
+                response.EnsureSuccessStatusCode();
+
+                using (var stream = await response.Content.ReadAsStreamAsync())
+                using (var streamReader = new StreamReader(stream))
+                {
+                    xdSource = await XDocument.LoadAsync(streamReader, LoadOptions.PreserveWhitespace,CancellationToken.None);
+                    xdData.Root?.Add(xdSource.Root?.Elements("programme"));
+                }
+            }
         }
     }
     public List<Channel> getAllChannels()
@@ -85,6 +98,7 @@ public class ChannelRepository : IChannelRepository
 
     public List<Programme> GetProgrammesByChannel(string IdXMLChannel)
     {
+
         List<XElement> xeProgrammes = xdData.Root.Descendants("programme").Where(prg => prg.Attribute("channel").Value == IdXMLChannel).ToList();
 
         List<Programme> list =
@@ -103,6 +117,7 @@ public class ChannelRepository : IChannelRepository
 
     public List<Programme> GetProgrammesByNameAndDescription(string query)
     {
+
         List<Programme> list = new List<Programme>();
         List<XElement> xeList = xdData.Root.Descendants("programme").Where(prg => (prg.Element("title") != null && prg.Element("title").Value.Contains(query)) || (prg.Element("desc") != null && prg.Element("desc").Value.Contains(query))).OrderBy(prg => prg.Attribute("start").Value).ToList();
 

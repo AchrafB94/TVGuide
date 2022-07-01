@@ -7,6 +7,8 @@ builder.Services.AddScoped<IChannelRepository,ChannelRepository>();
 builder.Services.AddDbContext<ChannelContext>();
 builder.Services.AddControllersWithViews();
 
+ChannelRepository.SetupXMLData();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,3 +27,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
