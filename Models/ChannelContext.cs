@@ -14,7 +14,7 @@ namespace TVGuide.Models
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // connect to sql server with connection string from app settings
-            options.UseSqlServer(Configuration.GetConnectionString("Database"));
+            options.UseSqlite(Configuration.GetConnectionString("Database"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

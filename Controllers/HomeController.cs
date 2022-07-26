@@ -21,12 +21,6 @@ namespace TVGuide.Controllers
                 ViewBag.SearchQuery = query;
                 return View(programmes);
         }
-
-        public IActionResult Now()
-        {
-            var programmes = _channelRepository.GetCurrentProgrammes();
-            return View(programmes);
-        }
         public IActionResult Index()
         {
             Channel randomChannel = _channelRepository.getRandomChannel();

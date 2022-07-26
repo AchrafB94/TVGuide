@@ -150,7 +150,8 @@ public class ChannelRepository : IChannelRepository
     public Channel getRandomChannel()
     {
         var rand = new Random();
-        return _context.Channels.OrderBy(r => Guid.NewGuid()).Take(1).First();
+        int toSkip = rand.Next(0, _context.Channels.Count());
+        return _context.Channels.Skip(toSkip).Take(1).First();
     }
 
     public List<Programme> GetTonightProgrammes(string channelXML)
