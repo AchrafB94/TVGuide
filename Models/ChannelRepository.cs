@@ -11,18 +11,18 @@ public class ChannelRepository : IChannelRepository
         _context = appDbContext;
     }
 
-    public static async void SetupXMLData()
+    public static async Task SetupXMLData()
     {
         xdData = new XDocument(new XElement("tv"));
         XDocument xdSource;
 
         List<string> xmlSources = new List<string>();
-        xmlSources.Add("https://iptv-org.github.io/epg/guides/fr/telecablesat.fr.epg.xml");
         xmlSources.Add("https://iptv-org.github.io/epg/guides/eg-ar/elcinema.com.epg.xml");
         xmlSources.Add("https://iptv-org.github.io/epg/guides/qa/bein.com.epg.xml");
         xmlSources.Add("https://iptv-org.github.io/epg/guides/dz-ar/osn.com.epg.xml");
+        xmlSources.Add("https://iptv-org.github.io/epg/guides/fr/telecablesat.fr.epg.xml");
 
-        foreach(string source in xmlSources)
+        foreach (string source in xmlSources)
         {
             using (HttpClient client = new HttpClient())
             {
