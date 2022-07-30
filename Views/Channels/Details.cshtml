@@ -10,25 +10,23 @@
 <br />
 <hr/>
 <div class="container">
-
-@foreach(Programme programme in Model.programs) 
-{
-
-    <div class="row">
-    <div class="col-10">
-        <p>@programme.Start.ToString("HH:mm") - @programme.Title</p>
-        <p>@programme.Category</p>
-        <p style="color: #5b5b5b">@programme.Description</p>
-    </div>
-            @if(!string.IsNullOrEmpty(@programme.Image))
-            {
-                    <div class="col-2">
-                <img src="@programme.Image" class="img-thumbnail" style="width: 400px;float: right;"/>
-            </div>                
+        <table class="table table-hover">
+        <tbody>
+    @foreach(Programme prg  in Model.programs) 
+    {
+        <tr>
+            @if(!string.IsNullOrEmpty(@prg.Image)) {
+                            <td><img src="@prg.Image" width="65"/></td>
             }
-
-    </div>
-    <hr />
-}
-
+            <td>@prg.Start.ToString("dddd dd MMMM")</td>
+            <td scope="row"><p>@prg.Start.ToString("HH:mm")</p></td>
+            <td>-</td>
+            <td scope="row"><p>@prg.Stop.ToString("HH:mm")</p></td>
+            <td><b>@prg.Title</b></td>
+            <td>@prg.Category</td>
+            <td>@prg.Description</td>
+        </tr>
+    }
+    </tbody>
+    </table>
 </div>
