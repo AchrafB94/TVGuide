@@ -19,7 +19,7 @@ public class ChannelRepository : IChannelRepository
         List<string> xmlSources = new List<string>();
         xmlSources.Add("https://iptv-org.github.io/epg/guides/eg-ar/elcinema.com.epg.xml");
         xmlSources.Add("https://iptv-org.github.io/epg/guides/qa/bein.com.epg.xml");
-        xmlSources.Add("https://iptv-org.github.io/epg/guides/dz-ar/osn.com.epg.xml");
+        xmlSources.Add("https://iptv-org.github.io/epg/guides/dz-en/osn.com.epg.xml");
         xmlSources.Add("https://iptv-org.github.io/epg/guides/fr/telecablesat.fr.epg.xml");
 
         foreach (string source in xmlSources)
@@ -157,6 +157,6 @@ public class ChannelRepository : IChannelRepository
     public List<Programme> GetTonightProgrammes(string channelXML)
     {
         DateTime.Today.AddHours(20);
-        return GetProgrammesByChannel(channelXML).Where(prg => prg.Start >= DateTime.Today.AddHours(20)).Take(4).ToList();
+        return GetProgrammesByChannel(channelXML).Where(prg => prg.Start >= DateTime.Today.AddHours(20)).Take(3).ToList();
     }
 }

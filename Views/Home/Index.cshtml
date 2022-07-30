@@ -5,25 +5,33 @@
     <div class="card">
   <div class="card-body">
     <h5 class="card-title">Welcome to the StarSat TV Guide</h5>
-    <p class="card-text">Consult your TV program of this day and find out which TV shows are available on StarSat satellite receivers in Tunisia and North Africa that use sharing servers such as Forever, GShare, Vanilla and FunCam.</p>
+    <p class="card-text">Consult your TV program of this day and find out which TV shows are available on StarSat satellite receivers in Tunisia and North Africa.</p>
   </div>
 </div>
 <hr />
-           <div>
-
+  <div>
   <h2>  Tonight on @Model.channel.Name </h2>
 
         <div class="row no-gutters">
             <div class="col-auto">
-                <img src="@Model.channel.Logo" class="img-fluid" alt="" style="max-height: 200px;">
+                <img src="@Model.channel.Logo" class="img-fluid" alt="" style="max-height: 200px; max-width: 200px;">
             </div>
             <div class="col">
                 <div class="card-block px-2">
+                                        <table class="table">
+
                 @foreach(var programme in Model.programs)
                 {
-                <p class="card-text"><b>@programme.Start.ToString("HH:mm") - @programme.Title </b> <br /> @programme.Description</p>                    
+                                            <tr>
+
+                                            <td><img src="@programme.Image" class="img-responsive" alt="" style="max-height: 100px;"></td>
+                                            <td><p class="card-text"><b>@programme.Start.ToString("HH:mm") - @programme.Title </b> <br /> @programme.Description</p>    </td>  
+                                                                                    </tr>
+
                 }
-                    <a class="btn btn-outline-danger" asp-controller="Channels" asp-action="Details" asp-route-id="@Model.channel.Id">View @Model.channel.Name Programme of the day</a>
+
+                </table>
+                    <a class="btn btn-outline-danger" asp-controller="Channels" asp-action="Details" asp-route-id="@Model.channel.Id">@Model.channel.Name Full Programme</a>
                 </div>
             </div>
         </div>

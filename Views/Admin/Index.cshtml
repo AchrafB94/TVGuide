@@ -1,0 +1,66 @@
+﻿@model IEnumerable<TVGuide.Models.Channel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>StarSat Administration</h1>
+
+<p>
+    <a asp-action="Create">Create a new channel</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Position
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Logo
+            </th>
+            <th>
+                EPG XML ID
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Package
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Logo)" style="max-height:100px;" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdXML)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Package)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
