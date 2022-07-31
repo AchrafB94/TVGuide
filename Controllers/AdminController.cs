@@ -21,7 +21,7 @@ namespace TVGuide.Controllers
         // GET: Admin
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Channels.ToListAsync());
+              return View(await _context.Channels.Include(ch => ch.Category).Include(ch => ch.Package).OrderBy(c => c.Position).ToListAsync());
         }
 
         // GET: Admin/Details/5
@@ -32,8 +32,7 @@ namespace TVGuide.Controllers
                 return NotFound();
             }
 
-            var channel = await _context.Channels
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var channel = await _context.Channels.Include(ch => ch.Category).Include(ch => ch.Package).FirstOrDefaultAsync(ch =>ch.Id == id);
             if (channel == null)
             {
                 return NotFound();

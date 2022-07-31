@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>@Html.DisplayFor(model => model.Name)</h1>
+<img src="@Html.DisplayFor(model => model.Logo)" />
 
 <div>
-    <h4>Channel</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -18,22 +18,28 @@
             @Html.DisplayFor(model => model.Position)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Logo)
+            Logo URL
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Logo)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdXML)
+            EPG XML ID
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.IdXML)
+        </dd>
+        <dt class = "col-sm-2">
+            Package
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Package?.Name
+        </dd>
+        <dt class = "col-sm-2">
+            Category
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Category?.Name
         </dd>
     </dl>
 </div>
