@@ -55,10 +55,12 @@ namespace TVGuide.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Position,Name,Logo,IdXML")] Channel channel)
+        public async Task<IActionResult> Create([Bind("Id,Position,Name,Logo,IdXML")] Channel channel, int IdPackage, int IdCategory)
         {
             if (ModelState.IsValid)
             {
+                channel.Category = _context.Categories.First(c => c.Id == IdCategory);
+                if(IdPackage != 0) channel.Package = _context.Packages.First(p => p.Id == IdPackage);
                 _context.Add(channel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -69,6 +71,9 @@ namespace TVGuide.Controllers
         // GET: Admin/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.Packages = _context.Packages.ToList();
+
             if (id == null || _context.Channels == null)
             {
                 return NotFound();
@@ -87,7 +92,7 @@ namespace TVGuide.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Position,Name,Logo,IdXML")] Channel channel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Position,Name,Logo,IdXML")] Channel channel, int IdPackage, int IdCategory)
         {
             if (id != channel.Id)
             {
@@ -98,6 +103,8 @@ namespace TVGuide.Controllers
             {
                 try
                 {
+                    channel.Category = _context.Categories.First(c => c.Id == IdCategory);
+                    if (IdPackage != 0) channel.Package = _context.Packages.First(p => p.Id == IdPackage);
                     _context.Update(channel);
                     await _context.SaveChangesAsync();
                 }

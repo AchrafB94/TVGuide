@@ -11,8 +11,8 @@ using TVGuide.Models;
 namespace TVGuide.Migrations
 {
     [DbContext(typeof(ChannelContext))]
-    [Migration("20220731131039_Cateogires_and_Packages")]
-    partial class Cateogires_and_Packages
+    [Migration("20220731143540_categories")]
+    partial class categories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

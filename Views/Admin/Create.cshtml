@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Add a new channel</h1>
 
-<h4>Channel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Position" class="control-label"></label>
-                <input asp-for="Position" class="form-control" />
+                <input asp-for="Position" type="number" class="form-control" />
                 <span asp-validation-for="Position" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,37 +23,37 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Logo" class="control-label"></label>
+                <label class="control-label">Logo URL</label>
                 <input asp-for="Logo" class="form-control" />
                 <span asp-validation-for="Logo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdXML" class="control-label"></label>
+                <label class="control-label">EPG XML ID</label>
                 <input asp-for="IdXML" class="form-control" />
                 <span asp-validation-for="IdXML" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <select asp-for="Category" class="form-control" >
-                    @foreach(Category c in @ViewBag.Categories)
-                    {
-                        <option value="@c.Id">@c.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="Category" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Package" class="control-label"></label>
-                <select asp-for="Package" class="form-control" >
+                <select name="IdPackage" class="form-control" >
+                    <option value="0">No Package</option>
                     @foreach(Package p in @ViewBag.Packages)
                     {
                         <option value="@p.Id">@p.Name</option>
                     }
                 </select>
-                <span asp-validation-for="Package" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select name="IdCategory" class="form-control" >
+                    @foreach(Category c in @ViewBag.Categories)
+                    {
+                        <option value="@c.Id">@c.Name</option>
+                    }
+                </select>
+            </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

@@ -4,7 +4,7 @@
 
 namespace TVGuide.Migrations
 {
-    public partial class Cateogires_and_Packages : Migration
+    public partial class categories : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
