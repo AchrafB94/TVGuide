@@ -9,6 +9,7 @@
         public string? Category { get; set; }
         public string? Image { get; set; }
         public Channel? Channel { get; set; }
+        public string ChannelName { get; set; }
 
         public Programme()
         {
@@ -33,6 +34,15 @@
             this.Image = Image;
             this.Channel = channel;
         }
-
+        public Programme(DateTime Start, DateTime Stop, string Title, string Description, string Category, string Image, string channelName)
+        {
+            this.Start = Start;
+            this.Stop = Stop;
+            this.Title = Title;
+            this.Description = Description;
+            this.Category = Category;
+            this.Image = Image;
+            this.ChannelName = channelName;
+        }
     }
 }

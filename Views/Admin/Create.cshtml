@@ -5,8 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Add a new channel</h1>
+<h1>Create</h1>
 
+<h4>Channel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -34,14 +35,26 @@
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                <select asp-for="Category" class="form-control" >
+                    @foreach(Category c in @ViewBag.Categories)
+                    {
+                        <option value="@c.Id">@c.Name</option>
+                    }
+                </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Package" class="control-label"></label>
-                <input asp-for="Package" class="form-control" />
+                <select asp-for="Package" class="form-control" >
+                    @foreach(Package p in @ViewBag.Packages)
+                    {
+                        <option value="@p.Id">@p.Name</option>
+                    }
+                </select>
                 <span asp-validation-for="Package" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

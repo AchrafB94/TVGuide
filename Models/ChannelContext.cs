@@ -18,9 +18,26 @@ namespace TVGuide.Models
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { 
+        {
+            modelBuilder.Entity<Category>().HasData(new List<Category> {
+                new Category { Id = 1, Name = "Movies" },
+                new Category { Id = 2, Name = "Series" },
+                new Category { Id = 3, Name = "Sports" },
+                new Category { Id = 4, Name = "Documentary" },
+                new Category { Id = 5, Name = "News" },
+                new Category { Id = 6, Name = "Kids" },
+                new Category { Id = 7, Name = "Music" }
+            });
+
+            modelBuilder.Entity<Package>().HasData(new List<Package> {
+                new Package { Id = 1, Name = "OSN" },
+                new Package { Id = 2, Name = "Canal" },
+                new Package { Id = 3, Name = "beIN" }
+            });
         }
 
         public DbSet<Channel> Channels { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Package> Packages { get; set; }
     }
 }

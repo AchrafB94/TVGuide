@@ -7,7 +7,7 @@ builder.Services.AddScoped<IChannelRepository,ChannelRepository>();
 builder.Services.AddDbContext<ChannelContext>();
 builder.Services.AddControllersWithViews();
 
-await ChannelRepository.SetupXMLData();
+await ProgrammeContext.Setup();
 
 var app = builder.Build();
 

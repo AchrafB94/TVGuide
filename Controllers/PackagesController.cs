@@ -9,87 +9,85 @@ using TVGuide.Models;
 
 namespace TVGuide.Controllers
 {
-    public class AdminController : Controller
+    public class PackagesController : Controller
     {
         private readonly ChannelContext _context;
 
-        public AdminController(ChannelContext context)
+        public PackagesController(ChannelContext context)
         {
             _context = context;
         }
 
-        // GET: Admin
+        // GET: Packages
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Channels.ToListAsync());
+              return View(await _context.Packages.ToListAsync());
         }
 
-        // GET: Admin/Details/5
+        // GET: Packages/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Channels == null)
+            if (id == null || _context.Packages == null)
             {
                 return NotFound();
             }
 
-            var channel = await _context.Channels
+            var package = await _context.Packages
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (channel == null)
+            if (package == null)
             {
                 return NotFound();
             }
 
-            return View(channel);
+            return View(package);
         }
 
-        // GET: Admin/Create
+        // GET: Packages/Create
         public IActionResult Create()
         {
-            ViewBag.Categories = _context.Categories.ToList();
-            ViewBag.Packages = _context.Packages.ToList();
             return View();
         }
 
-        // POST: Admin/Create
+        // POST: Packages/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Position,Name,Logo,IdXML")] Channel channel)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Package package)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(channel);
+                _context.Add(package);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(channel);
+            return View(package);
         }
 
-        // GET: Admin/Edit/5
+        // GET: Packages/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Channels == null)
+            if (id == null || _context.Packages == null)
             {
                 return NotFound();
             }
 
-            var channel = await _context.Channels.FindAsync(id);
-            if (channel == null)
+            var package = await _context.Packages.FindAsync(id);
+            if (package == null)
             {
                 return NotFound();
             }
-            return View(channel);
+            return View(package);
         }
 
-        // POST: Admin/Edit/5
+        // POST: Packages/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Position,Name,Logo,IdXML")] Channel channel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Package package)
         {
-            if (id != channel.Id)
+            if (id != package.Id)
             {
                 return NotFound();
             }
@@ -98,12 +96,12 @@ namespace TVGuide.Controllers
             {
                 try
                 {
-                    _context.Update(channel);
+                    _context.Update(package);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ChannelExists(channel.Id))
+                    if (!PackageExists(package.Id))
                     {
                         return NotFound();
                     }
@@ -114,49 +112,49 @@ namespace TVGuide.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(channel);
+            return View(package);
         }
 
-        // GET: Admin/Delete/5
+        // GET: Packages/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Channels == null)
+            if (id == null || _context.Packages == null)
             {
                 return NotFound();
             }
 
-            var channel = await _context.Channels
+            var package = await _context.Packages
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (channel == null)
+            if (package == null)
             {
                 return NotFound();
             }
 
-            return View(channel);
+            return View(package);
         }
 
-        // POST: Admin/Delete/5
+        // POST: Packages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Channels == null)
+            if (_context.Packages == null)
             {
-                return Problem("Entity set 'ChannelContext.Channels'  is null.");
+                return Problem("Entity set 'ChannelContext.Packages'  is null.");
             }
-            var channel = await _context.Channels.FindAsync(id);
-            if (channel != null)
+            var package = await _context.Packages.FindAsync(id);
+            if (package != null)
             {
-                _context.Channels.Remove(channel);
+                _context.Packages.Remove(package);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ChannelExists(int id)
+        private bool PackageExists(int id)
         {
-          return _context.Channels.Any(e => e.Id == id);
+          return _context.Packages.Any(e => e.Id == id);
         }
     }
 }

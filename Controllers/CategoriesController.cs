@@ -9,87 +9,85 @@ using TVGuide.Models;
 
 namespace TVGuide.Controllers
 {
-    public class AdminController : Controller
+    public class CategoriesController : Controller
     {
         private readonly ChannelContext _context;
 
-        public AdminController(ChannelContext context)
+        public CategoriesController(ChannelContext context)
         {
             _context = context;
         }
 
-        // GET: Admin
+        // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Channels.ToListAsync());
+              return View(await _context.Categories.ToListAsync());
         }
 
-        // GET: Admin/Details/5
+        // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Channels == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var channel = await _context.Channels
+            var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (channel == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(channel);
+            return View(category);
         }
 
-        // GET: Admin/Create
+        // GET: Categories/Create
         public IActionResult Create()
         {
-            ViewBag.Categories = _context.Categories.ToList();
-            ViewBag.Packages = _context.Packages.ToList();
             return View();
         }
 
-        // POST: Admin/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Position,Name,Logo,IdXML")] Channel channel)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(channel);
+                _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(channel);
+            return View(category);
         }
 
-        // GET: Admin/Edit/5
+        // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Channels == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var channel = await _context.Channels.FindAsync(id);
-            if (channel == null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            return View(channel);
+            return View(category);
         }
 
-        // POST: Admin/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Position,Name,Logo,IdXML")] Channel channel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
         {
-            if (id != channel.Id)
+            if (id != category.Id)
             {
                 return NotFound();
             }
@@ -98,12 +96,12 @@ namespace TVGuide.Controllers
             {
                 try
                 {
-                    _context.Update(channel);
+                    _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ChannelExists(channel.Id))
+                    if (!CategoryExists(category.Id))
                     {
                         return NotFound();
                     }
@@ -114,49 +112,49 @@ namespace TVGuide.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(channel);
+            return View(category);
         }
 
-        // GET: Admin/Delete/5
+        // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Channels == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var channel = await _context.Channels
+            var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (channel == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(channel);
+            return View(category);
         }
 
-        // POST: Admin/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Channels == null)
+            if (_context.Categories == null)
             {
-                return Problem("Entity set 'ChannelContext.Channels'  is null.");
+                return Problem("Entity set 'ChannelContext.Categories'  is null.");
             }
-            var channel = await _context.Channels.FindAsync(id);
-            if (channel != null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category != null)
             {
-                _context.Channels.Remove(channel);
+                _context.Categories.Remove(category);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ChannelExists(int id)
+        private bool CategoryExists(int id)
         {
-          return _context.Channels.Any(e => e.Id == id);
+          return _context.Categories.Any(e => e.Id == id);
         }
     }
 }
