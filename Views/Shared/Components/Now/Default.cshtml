@@ -1,6 +1,29 @@
 ﻿@model List<Programme>
 
 <h2>Now on TV</h2>
+<div class="now">
+    <div class="gallery">
+        <ul class="gallery-container">
+            @{
+                var r = new Random();
+                var showGallery = Model.Where(prg => !string.IsNullOrEmpty(prg.Image)).Skip(r.Next(1,Model.Count - 4)).Take(4);
+                foreach(Programme show in showGallery)
+                {
+                    <li class="card-gallery">
+                        <a target="_blank" asp-controller="Channels" asp-action="Details" asp-route-id="@show.Channel.Id" >
+                            <div class="gallery-card-bg" ></div>
+                            <img class="card-gallery-logo" src="@show.Image"/>
+                            <div class="gallery-card-infos">
+                            <span>@show.Title</span><h6><img src="@show.Channel.Logo" style="max-height: 35px; max-width: 35px;"/></h6>
+                            </div>
+                        </a>
+                    </li>
+                }
+              }
+        </ul>
+    </div>
+    </div>
+
 <table class="table table-hover">
     <thead>
         <tr>
@@ -40,3 +63,7 @@
         }
     </tbody>
 </table>
+
+<style>
+
+</style>
