@@ -21,12 +21,12 @@ public class ChannelRepository : IChannelRepository
 
     public List<Channel> getChannelsByCategory(string category)
     {
-        return _context.Channels.Where(ch => ch.Category.Name == category).ToList();
+        return _context.Channels.Where(ch => ch.Category.Name == category).OrderBy(ch => ch.Position).ToList();
     }
 
     public List<Channel> getChannelsByPackage(string package)
     {
-        return _context.Channels.Where(ch => ch.Package.Name == package).ToList();
+        return _context.Channels.Where(ch => ch.Package.Name == package).OrderBy(ch => ch.Position).ToList();
     }
     public List<Programme> GetCurrentProgrammes()
     {

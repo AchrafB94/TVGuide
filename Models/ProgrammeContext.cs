@@ -15,10 +15,8 @@ namespace TVGuide.Models
 
             xmlSources.Add("https://iptv-org.github.io/epg/guides/eg-ar/elcinema.com.epg.xml");
             xmlSources.Add("https://iptv-org.github.io/epg/guides/qa/bein.com.epg.xml");
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/dz-en/osn.com.epg.xml");
+            xmlSources.Add("https://iptv-org.github.io/epg/guides/dz-ar/osn.com.epg.xml");
             xmlSources.Add("https://iptv-org.github.io/epg/guides/fr/telecablesat.fr.epg.xml");
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/it/raiplay.it.epg.xml");
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/it/mediaset.it.epg.xml");
 
             foreach (string source in xmlSources)
             {
