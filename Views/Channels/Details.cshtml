@@ -24,7 +24,10 @@
             <td><b>@prg.Title</b></td>
             <td>@prg.Category</td>
         </tr>            
-        <tr><td colspan="5">@prg.Description</td></tr>
+                @if (!string.IsNullOrEmpty(@prg.Description))
+                {
+                    <tr><td colspan="5">@prg.Description</td></tr>
+                }
     }
     </tbody>
     </table>
