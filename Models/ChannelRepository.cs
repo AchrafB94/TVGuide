@@ -51,7 +51,7 @@ public class ChannelRepository : IChannelRepository
     {
         List<string?> ChannelXMLIds = _context.Channels.Select(ch => ch.IdXML).ToList();
         query = query.ToLower();
-        List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && (prg.Title.ToLower().Contains(query) || prg.Description.ToLower().Contains(query))).OrderBy(prg => prg.Start).ToList();
+        List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && (prg.Title.ToLower().Contains(query) || prg.Description.ToLower().Contains(query)) && prg.Stop >= DateTime.Now).OrderBy(prg => prg.Start).ToList();
 
 
         foreach (Programme prg in list)
