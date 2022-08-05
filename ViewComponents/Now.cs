@@ -9,9 +9,12 @@ namespace TVGuide.Views.Home
 
         public Now(IChannelRepository repository) => _repository = repository;
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int IdCategory)
         {
-            return View(_repository.GetCurrentProgrammes());
+            if (IdCategory == 0)
+                return View(await _repository.GetCurrentProgrammes());
+            else
+                return View(await _repository.GetCurrentProgrammes(IdCategory));
         }
     }
 }

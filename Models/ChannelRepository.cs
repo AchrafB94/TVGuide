@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 using TVGuide.Models;
 
@@ -19,18 +20,32 @@ public class ChannelRepository : IChannelRepository
         return _context.Channels.Where(ch => ch.Id == channelId).First();
     }
 
-    public List<Channel> getChannelsByCategory(string category)
+    public List<Channel> getChannelsByCategory(int category)
     {
-        return _context.Channels.Where(ch => ch.Category.Name == category).OrderBy(ch => ch.Position).ToList();
+        return _context.Channels.Where(ch => ch.Category.Id == category).OrderBy(ch => ch.Position).ToList();
     }
 
-    public List<Channel> getChannelsByPackage(string package)
+    public List<Channel> getChannelsByPackage(int package)
     {
-        return _context.Channels.Where(ch => ch.Package.Name == package).OrderBy(ch => ch.Position).ToList();
+        return _context.Channels.Where(ch => ch.Package.Id == package).OrderBy(ch => ch.Position).ToList();
     }
-    public List<Programme> GetCurrentProgrammes()
+    public async Task<List<Programme>> GetCurrentProgrammes()
     {
-        List<string?> ChannelXMLIds = _context.Channels.Select(ch => ch.IdXML).ToList();
+        List<string?> ChannelXMLIds = await _context.Channels.Select(ch => ch.IdXML).ToListAsync();
+        List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && prg.Start <= DateTime.Now && DateTime.Now < prg.Stop).ToList();
+
+        foreach (Programme prg in list)
+        {
+            prg.Channel = _context.Channels.Where(ch => ch.IdXML == prg.ChannelName).FirstOrDefault();
+        }
+
+        list = list.OrderBy(prg => prg.Channel.Position).DistinctBy(prg => prg.Channel.IdXML).ToList();
+        return list;
+    }
+
+    public async Task<List<Programme>> GetCurrentProgrammes(int IdCategory)
+    {
+        List<string?> ChannelXMLIds = await _context.Channels.Where(ch => ch.Category.Id == IdCategory).Select(ch => ch.IdXML).ToListAsync();
         List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && prg.Start <= DateTime.Now && DateTime.Now < prg.Stop).ToList();
 
         foreach (Programme prg in list)
@@ -73,5 +88,15 @@ public class ChannelRepository : IChannelRepository
     {
         DateTime.Today.AddHours(20);
         return GetProgrammesByChannel(channelXML).Where(prg => prg.Start >= DateTime.Today.AddHours(20)).Take(3).ToList();
+    }
+
+    public string GetCategoryName(int IdCategory)
+    {
+        return _context.Categories.FirstOrDefault(c => c.Id == IdCategory).Name;
+    }
+
+    public string GetPackageName(int IdPackage)
+    {
+        return _context.Packages.FirstOrDefault(p => p.Id == IdPackage).Name;
     }
 }

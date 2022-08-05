@@ -3,7 +3,10 @@
 @{
     ViewData["Title"] = "Channels";
 }
+<h1>@ViewBag.Header Channels</h1>
 <center>
 @foreach (var item in Model) {
     <a asp-action="Details" asp-route-id="@item.Id"><img src="@item.Logo" style="max-width: 100px; max-height: 100px;" alt="@item.Name"></a>
 }</center>
+
+  @await Component.InvokeAsync("Now", new {IdCategory = ViewBag.IdCategory})
