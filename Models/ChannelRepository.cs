@@ -50,8 +50,8 @@ public class ChannelRepository : IChannelRepository
     public List<Programme> GetProgrammesByNameAndDescription(string query)
     {
         List<string?> ChannelXMLIds = _context.Channels.Select(ch => ch.IdXML).ToList();
-
-        List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && (prg.Title.Contains(query) || prg.Description.Contains(query))).OrderBy(prg => prg.Start).ToList();
+        query = query.ToLower();
+        List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && (prg.Title.ToLower().Contains(query) || prg.Description.ToLower().Contains(query))).OrderBy(prg => prg.Start).ToList();
 
 
         foreach (Programme prg in list)

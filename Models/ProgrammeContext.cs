@@ -13,7 +13,7 @@ namespace TVGuide.Models
             XDocument xdSource;
 
 
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/eg-ar/elcinema.com.epg.xml");
+            xmlSources.Add("https://iptv-org.github.io/epg/guides/eg-en/elcinema.com.epg.xml");
             xmlSources.Add("https://iptv-org.github.io/epg/guides/qa/bein.com.epg.xml");
             xmlSources.Add("https://iptv-org.github.io/epg/guides/dz-ar/osn.com.epg.xml");
             xmlSources.Add("https://iptv-org.github.io/epg/guides/fr/telecablesat.fr.epg.xml");

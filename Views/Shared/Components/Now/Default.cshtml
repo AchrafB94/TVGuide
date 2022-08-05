@@ -23,33 +23,33 @@
         </ul>
     </div>
     </div>
-
-<table class="table table-hover">
+<div class="table-responsive">
+<table class="table table-hover ">
     <thead>
         <tr>
             <th>Channel</th>
-            <th>Start</th>
-            <th>-</th>
-            <th>End</th>
-            <th>-</th>
+            <th>Time</th>
+            <th></th>
             <th>Programme</th>
             <th>Progress</th>
         </tr>
     </thead>
     <tbody>
+        @{int i = 0;}
         @foreach(Programme programme in Model)
         {
+                i++;
+                if (programme.Title.Length > 40)
+                programme.Title = programme.Title.Substring(0, 37) + "...";
              double programLength = (@programme.Stop - @programme.Start).TotalMinutes;            
              double programProgress = (DateTime.Now - @programme.Start).TotalMinutes;
              double percentage = 0;
             if(programLength > 0)   
                 percentage = programProgress * 100 / programLength;
 
-            <tr onclick="location.href='@(Url.Action("Details", "Channels", new { id = @programme.Channel.Id }))'">
+            <tr data-toggle="modal" data-target="#exampleModal_@i">
             <td><img src="@programme.Channel.Logo" style="max-height: 35px; max-width: 35px;"/>@programme.Channel.Name</td>
-            <td>@programme.Start.ToString("HH:mm") </td>
-            <td>-</td>
-            <td>@programme.Stop.ToString("HH:mm") </td>
+            <td>@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</td>
             <td>-</td>
             <td><b>@programme.Title</b></td>
 
@@ -60,10 +60,40 @@
             </td>
 
         </tr>
-        }
+
+        <div id="exampleModal_@i" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><img src="@programme.Channel.Logo" height="30" /> @programme.Title</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" asp-controller="Channels" asp-action="Details" asp-route-id="@programme.Channel.Id" role="post">
+                                @if(!string.IsNullOrEmpty(programme.Image))
+                                {
+                                    <img src="@programme.Image" style="max-width:100%" />
+                                }
+                                else
+                                {
+                                    <img src="@programme.Channel.Logo"  style="max-width:100%" />
+                                }
+
+                        <h5>@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</h5>
+                        <b>@programme.Category</b>
+                        <p>@programme.Description</p>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-danger">Full Program</button>
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
     </tbody>
 </table>
+</div>
 
-<style>
 
-</style>
+   
