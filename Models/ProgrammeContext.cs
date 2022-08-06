@@ -12,11 +12,14 @@ namespace TVGuide.Models
             List<string> xmlSources = new List<string>();
             XDocument xdSource;
 
-
             xmlSources.Add("https://iptv-org.github.io/epg/guides/eg-en/elcinema.com.epg.xml");
             xmlSources.Add("https://iptv-org.github.io/epg/guides/qa/bein.com.epg.xml");
             xmlSources.Add("https://iptv-org.github.io/epg/guides/dz-ar/osn.com.epg.xml");
             xmlSources.Add("https://iptv-org.github.io/epg/guides/fr/telecablesat.fr.epg.xml");
+            xmlSources.Add("https://iptv-org.github.io/epg/guides/de/hd-plus.de.epg.xml");
+            xmlSources.Add("https://iptv-org.github.io/epg/guides/it/mediaset.it.epg.xml");
+            xmlSources.Add("https://iptv-org.github.io/epg/guides/it/raiplay.it.epg.xml");
+            xmlSources.Add("https://iptv-org.github.io/epg/guides/es/movistarplus.es.epg.xml");
 
             foreach (string source in xmlSources)
             {
