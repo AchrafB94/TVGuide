@@ -4,9 +4,39 @@
     ViewData["Title"] = "Channels";
 }
 <h1>@ViewBag.Header Channels</h1>
-<center>
+   <section class="logo-list">
+        <div class="container">
+            <div class="row">
 @foreach (var item in Model) {
-    <a asp-action="Details" asp-route-id="@item.Id"><img src="@item.Logo" style="max-width: 100px; max-height: 100px;" alt="@item.Name"></a>
-}</center>
+    <div class="col-lg-1 col-md-2 col-3">
+        <a asp-action="Details" asp-route-id="@item.Id"><img src="@item.Logo" class="img-fluid" alt="@item.Name"></a>
+    </div>
+}
+            </div>
+        </div>
+    </section>
 
+<h1>Live Shows</h1>
   @await Component.InvokeAsync("Now", new {IdCategory = ViewBag.IdCategory})
+
+
+      <style>
+    .logo-list {
+        padding: 10px 0;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        position: center;
+    }
+    .logo-list img {
+        display: inline-block;
+        max-width: 85%;
+        padding: 10px 0;
+        transition: all 0.3s ease-in-out;
+        margin-top: auto;
+        margin-bottom: auto;
+        max-height: 85%;
+    }
+    .logo-list img:hover {
+        transform: scale(1.4);
+    }
+    </style>
