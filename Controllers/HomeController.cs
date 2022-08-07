@@ -33,7 +33,7 @@ namespace TVGuide.Controllers
             }
             while (!tonightProgrammes.All(p => !string.IsNullOrEmpty(p.Image)) || !tonightProgrammes.Any());
 
-            ViewModel model = new ViewModel();
+            TonightViewModel model = new TonightViewModel();
             model.channel = randomChannel;
             model.programs = tonightProgrammes;
             return View(model);

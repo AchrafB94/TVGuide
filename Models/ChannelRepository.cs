@@ -57,9 +57,9 @@ public class ChannelRepository : IChannelRepository
         return list;
     }
 
-    public List<Programme> GetProgrammesByChannel(string IdXMLChannel)
+    public List<IGrouping<DayOfWeek,Programme>> GetProgrammesByChannel(string IdXMLChannel)
     {
-        return ProgrammeContext.list?.Where(prg => prg.ChannelName == IdXMLChannel).ToList();
+        return ProgrammeContext.list?.Where(prg => prg.ChannelName == IdXMLChannel).GroupBy(prg => prg.Start.DayOfWeek).ToList();
     }
 
     public List<Programme> GetProgrammesByNameAndDescription(string query)
@@ -86,8 +86,7 @@ public class ChannelRepository : IChannelRepository
 
     public List<Programme> GetTonightProgrammes(string channelXML)
     {
-        DateTime.Today.AddHours(20);
-        return GetProgrammesByChannel(channelXML).Where(prg => prg.Start >= DateTime.Today.AddHours(20)).Take(3).ToList();
+        return ProgrammeContext.list.Where(prg => prg.ChannelName == channelXML && prg.Start >= DateTime.Today.AddHours(20)).Take(3).ToList();
     }
 
     public string GetCategoryName(int IdCategory)

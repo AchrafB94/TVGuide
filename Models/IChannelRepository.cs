@@ -8,7 +8,7 @@ public interface IChannelRepository
     List<Channel> getChannelsByCategory(int IdCategory);
     Task<List<Programme>> GetCurrentProgrammes();
     Task<List<Programme>> GetCurrentProgrammes(int IdCategory);
-    List<Programme> GetProgrammesByChannel(string IdXMLChannel);
+    List<IGrouping<DayOfWeek,Programme>> GetProgrammesByChannel(string IdXMLChannel);
     List<Programme> GetProgrammesByNameAndDescription(string query);
     Channel getRandomChannel();
     List<Programme> GetTonightProgrammes(string channelXML);
