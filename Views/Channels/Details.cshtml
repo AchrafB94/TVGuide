@@ -17,9 +17,11 @@
 <div class="container table-responsive">
         <table class="table table-hover table-striped">
         <tbody>
+              @{int i = 0;}
             @foreach(Programme prg  in day) 
                 {
-                    <tr>
+                    i++;
+                    <tr data-toggle="modal" data-target="#exampleModal_@i">
                         @if(!string.IsNullOrEmpty(@prg.Image)) {
                                         <td><img src="@prg.Image" style="max-width: 80px;"/></td>
                         }
@@ -31,6 +33,35 @@
                             {
                                 <tr><td colspan="5">@prg.Description</td></tr>
                             }
+
+                             <div id="exampleModal_@i" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><img src="@Model.channel.Logo" height="30" /> @prg.Title</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" role="post">
+                                @if(!string.IsNullOrEmpty(prg.Image))
+                                {
+                                    <img src="@prg.Image" style="max-width:100%" />
+                                }
+                                else
+                                {
+                                    <img src="@prg.Channel.Logo"  style="max-width:100%" />
+                                }
+
+                        <h5>@prg.Start.ToString("HH:mm") - @prg.Stop.ToString("HH:mm")</h5>
+                        <b>@prg.Category</b>
+                        <p>@prg.Description</p>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
                 }    
 
             

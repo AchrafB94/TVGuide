@@ -51,11 +51,10 @@ body {
     padding: 0 50px 0 50px;
     padding-bottom: 0px;
     padding-bottom: 20px;
-    overflow-x: auto;
+    overflow-x: hidden;
     list-style: none;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
-    scrollbar-width: none;
 }
 
 .card-gallery-logo {
