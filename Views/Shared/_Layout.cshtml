@@ -16,8 +16,8 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand link-danger" asp-area="" asp-controller="Home" asp-action="Index">
-                    TV Guide
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-star"></i> STAR TV Guide
                     </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="2"><i class="fa-solid fa-tv"></i> Series</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="8"><i class="fa-solid fa-play"></i> Entertainment</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="3"><i class="fa-solid fa-futbol"></i> Sport</a>
                         </li>
                         <li class="nav-item">
@@ -41,7 +44,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="6"><i class="fa-solid fa-children"></i> Kids</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="7"><i class="fa-solid fa-music"></i> Arts</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="5"><i class="fa-solid fa-newspaper"></i> News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="9"><i class="fa-solid fa-globe"></i> International</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" ><img src="https://www.osn.com/osn/media/OSNMedia/Images/new-base/logo.svg" height="20" /></a>
@@ -69,7 +78,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            TV Guide - Website created by <a href="https://github.com/AchrafB94">Achraf Bouanani</a>
+            STAR TV Guide - Website created by <a href="https://github.com/AchrafB94">Achraf Bouanani</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,20 +1,11 @@
 ﻿@model List<Programme>
 
             @{
-                var r = new Random();
-                List<Programme> randomProgrammes = new List<Programme>();
-                var programmesWithImages = Model.Where(prg => !string.IsNullOrEmpty(prg.Image));
-                if(programmesWithImages.Any())
-                {
-                    @for(int j = 1; j <= 4; j++)
-                    {
-                        var randomProgramme = programmesWithImages.Skip(r.Next(0,programmesWithImages.Count())).First();
-                        randomProgrammes.Add(randomProgramme);
-                    }
+                    var featuredProgrammes = Model.Where(prg => !string.IsNullOrEmpty(prg.Image) && prg.Image != "https://media.elcinema.com/blank_photos/150x200.jpg").Take(8).ToList();
                     <div class="now">
                     <div class="gallery">
                         <ul class="gallery-container">
-                    @foreach(Programme show in randomProgrammes)
+                    @foreach(Programme show in featuredProgrammes)
                     {
                         <li class="card-gallery">
                             <a target="_blank" asp-controller="Channels" asp-action="Details" asp-route-id="@show.Channel.Id" >
@@ -29,7 +20,6 @@
                             </ul>
                     </div>
                     </div>
-                }
             }
 
 <div class="table-responsive">

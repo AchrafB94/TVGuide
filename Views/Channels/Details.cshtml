@@ -6,16 +6,13 @@
 
 <center>
 <img src="@Model.channel.Logo" style="max-width: 30%; max-height: 30%"/>
-<h1>@Model.channel.Name</h1>
 </center>
-<br />
-<hr/>
-
             @foreach(var day in Model.programs)
             {
+                <hr />
                 <h2>@day.Key</h2>
 <div class="container table-responsive">
-        <table class="table table-hover table-striped">
+        <table class="table table-striped">
         <tbody>
               @{int i = 0;}
             @foreach(Programme prg  in day) 
@@ -23,7 +20,7 @@
                     i++;
                     <tr data-toggle="modal" data-target="#exampleModal_@i">
                         @if(!string.IsNullOrEmpty(@prg.Image)) {
-                                        <td><img src="@prg.Image" style="max-width: 80px;"/></td>
+                                        <td><img src="@prg.Image" style="max-height: 80px;"/></td>
                         }
                         <td scope="row"><p>@prg.Start.ToString("HH:mm") - @prg.Stop.ToString("HH:mm")</p></td>
                         <td><b>@prg.Title</b></td>
@@ -48,7 +45,7 @@
                                 }
                                 else
                                 {
-                                    <img src="@prg.Channel.Logo"  style="max-width:100%" />
+                                    <img src="@Model.channel.Logo"  style="max-width:100%" />
                                 }
 
                         <h5>@prg.Start.ToString("HH:mm") - @prg.Stop.ToString("HH:mm")</h5>
