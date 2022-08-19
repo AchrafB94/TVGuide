@@ -6,20 +6,20 @@ namespace TVGuide.Models
     {
         public static List<Programme> list;
 
-        public static async Task Setup()
+        public static async Task Setup(WebApplicationBuilder builder)
         {
             XDocument? xdData = new XDocument(new XElement("tv"));
             List<string> xmlSources = new List<string>();
             XDocument xdSource;
 
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/eg-en/elcinema.com.epg.xml");
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/qa/bein.com.epg.xml");
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/dz-en/osn.com.epg.xml");
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/fr/canalplus.com.epg.xml");
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/de/hd-plus.de.epg.xml");
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/it/mediaset.it.epg.xml");
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/it/raiplay.it.epg.xml");
-            xmlSources.Add("https://iptv-org.github.io/epg/guides/es/movistarplus.es.epg.xml");
+            xmlSources.Add(builder.Configuration.GetValue<string>("Sources:Elcinema"));
+            xmlSources.Add(builder.Configuration.GetValue<string>("Sources:Bein"));
+            xmlSources.Add(builder.Configuration.GetValue<string>("Sources:OSN"));
+            xmlSources.Add(builder.Configuration.GetValue<string>("Sources:Canal"));
+            xmlSources.Add(builder.Configuration.GetValue<string>("Sources:HDPlus"));
+            xmlSources.Add(builder.Configuration.GetValue<string>("Sources:Mediaset"));
+            xmlSources.Add(builder.Configuration.GetValue<string>("Sources:Rai"));
+            xmlSources.Add(builder.Configuration.GetValue<string>("Sources:Movistar"));
 
             foreach (string source in xmlSources)
             {

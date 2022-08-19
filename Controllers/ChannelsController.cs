@@ -24,7 +24,7 @@ namespace TVGuide.Controllers
             else
                 channels = _channelRepository.getAllChannels();
 
-            return View(channels);
+            return View(channels.OrderBy(ch => ch.Name).ToList());
         }
 
         public IActionResult Details(int id)

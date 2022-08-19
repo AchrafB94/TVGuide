@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace TVGuide.Models
 {
-    public class ChannelContext : DbContext
+    public class ChannelContext : IdentityDbContext<TVGuideUser>
     {
         protected readonly IConfiguration Configuration;
 
@@ -19,6 +20,8 @@ namespace TVGuide.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Category>().HasData(new List<Category> {
                 new Category { Id = 1, Name = "Movies" },
                 new Category { Id = 2, Name = "Series" },
@@ -34,10 +37,14 @@ namespace TVGuide.Models
                 new Package { Id = 2, Name = "Canal" },
                 new Package { Id = 3, Name = "beIN" }
             });
+
+            modelBuilder.Entity<TVGuideUser>().HasMany(u => u.favoriteChannels).WithOne(fc => fc.User);
         }
 
         public DbSet<Channel> Channels { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Package> Packages { get; set; }
+        public DbSet<TVGuideUser> Users { get; set; }
+        public DbSet<FavoriteChannel> FavoriteChannels { get; set; }
     }
 }

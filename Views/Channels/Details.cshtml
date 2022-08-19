@@ -18,19 +18,25 @@
             @foreach(Programme prg  in day) 
                 {
                     i++;
-                    <tr data-toggle="modal" data-target="#exampleModal_@i">
-                        @if(!string.IsNullOrEmpty(@prg.Image)) {
-                                        <td><img src="@prg.Image" style="max-height: 80px;"/></td>
+                 
+             <tr data-toggle="modal" data-target="#exampleModal_@i">
+                                         @if (!string.IsNullOrEmpty(prg.Image))
+                        {
+                            <td><img src="@prg.Image" width="100"/></td>
                         }
-                        <td scope="row"><p>@prg.Start.ToString("HH:mm") - @prg.Stop.ToString("HH:mm")</p></td>
-                        <td><b>@prg.Title</b></td>
-                        <td>@prg.Category</td>
-                    </tr>            
-                            @if (!string.IsNullOrEmpty(@prg.Description))
-                            {
-                                <tr><td colspan="5">@prg.Description</td></tr>
-                            }
-
+                        <td>@prg.Start.ToString("HH:mm")</td>
+            <td>-</td>
+            <td> @prg.Stop.ToString("HH:mm")</td>
+            <td><b>@prg.Title</b></td>
+                        @if (!string.IsNullOrEmpty(prg.Category))
+                        {
+                            <td>@prg.Category</td>
+                        }
+                        @if (!string.IsNullOrEmpty(prg.Description))
+                        {
+                            <td>@prg.Description</td>
+                        }
+        </tr>
                              <div id="exampleModal_@i" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
