@@ -1,5 +1,7 @@
 using TVGuide.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using TVGuide.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Database") ?? throw new InvalidOperationException("Connection string 'TVGuideContextConnection' not found.");
@@ -9,12 +11,22 @@ builder.Services.AddScoped<IChannelRepository,ChannelRepository>();
 builder.Services.AddScoped<IFavoriteChannelRepository,FavoriteChannelRepository>();
 builder.Services.AddDbContext<ChannelContext>();
 
-builder.Services.AddDefaultIdentity<TVGuideUser>(options =>
+builder.Services.AddIdentity<TVGuideUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireNonAlphanumeric = false;
 })
-    .AddEntityFrameworkStores<ChannelContext>();
+    .AddEntityFrameworkStores<ChannelContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("IsAdmin", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("CanManageChannels", policy => policy.RequireClaim("Permission", "ManageChannels"));
+});
+
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<TVGuideUser>, ApplicationUserClaimPrincipalsFactory>();
 
 builder.Services.AddControllersWithViews();
 
@@ -22,11 +34,13 @@ await ProgrammeContext.Setup(builder);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-//if (!app.Environment.IsDevelopment())
-//{
-//    app.UseExceptionHandler("/Home/Error");
-//}
+
+
+//PIPELINE
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+}
 
 app.UseDeveloperExceptionPage();
 

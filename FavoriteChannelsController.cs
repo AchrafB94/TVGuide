@@ -3,93 +3,82 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TVGuide.Models;
 
-namespace TVGuide.Controllers
+namespace TVGuide
 {
-    [Authorize(Policy = "IsAdmin")]
-    public class PackagesController : Controller
+    [Authorize]
+    public class FavoriteChannelsController : Controller
     {
         private readonly ChannelContext _context;
+        private readonly UserManager<TVGuideUser> _userManager;
 
-        public PackagesController(ChannelContext context)
+        public FavoriteChannelsController(ChannelContext context, UserManager<TVGuideUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // GET: Packages
+        // GET: FavoriteChannels
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Packages.ToListAsync());
+            var user = await _userManager.GetUserAsync(User);
+            return View(await _context.FavoriteChannels.Where(fc => fc.User == user).ToListAsync());
         }
 
-        // GET: Packages/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Packages == null)
-            {
-                return NotFound();
-            }
-
-            var package = await _context.Packages
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (package == null)
-            {
-                return NotFound();
-            }
-
-            return View(package);
-        }
-
-        // GET: Packages/Create
+        // GET: FavoriteChannels/Create
         public IActionResult Create()
         {
+            ViewBag.Channels = _context.Channels.ToList();
             return View();
         }
 
-        // POST: Packages/Create
+        // POST: FavoriteChannels/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Package package)
+        public async Task<IActionResult> Create([Bind("Id,FavoritePosition")] FavoriteChannel favoriteChannel, int IdChannel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(package);
+                favoriteChannel.Channel = _context.Channels.Where(ch => ch.Id == IdChannel).First();
+                favoriteChannel.User = await _userManager.GetUserAsync(User);
+                _context.Add(favoriteChannel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(package);
+            return View(favoriteChannel);
         }
 
-        // GET: Packages/Edit/5
+        // GET: FavoriteChannels/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Packages == null)
+            if (id == null || _context.FavoriteChannels == null)
             {
                 return NotFound();
             }
 
-            var package = await _context.Packages.FindAsync(id);
-            if (package == null)
+            var favoriteChannel = await _context.FavoriteChannels.FindAsync(id);
+            if (favoriteChannel == null)
             {
                 return NotFound();
             }
-            return View(package);
+            return View(favoriteChannel);
         }
 
-        // POST: Packages/Edit/5
+        // POST: FavoriteChannels/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Package package)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FavoritePosition")] FavoriteChannel favoriteChannel)
         {
-            if (id != package.Id)
+            if (id != favoriteChannel.Id)
             {
                 return NotFound();
             }
@@ -98,12 +87,12 @@ namespace TVGuide.Controllers
             {
                 try
                 {
-                    _context.Update(package);
+                    _context.Update(favoriteChannel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PackageExists(package.Id))
+                    if (!FavoriteChannelExists(favoriteChannel.Id))
                     {
                         return NotFound();
                     }
@@ -114,49 +103,49 @@ namespace TVGuide.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(package);
+            return View(favoriteChannel);
         }
 
-        // GET: Packages/Delete/5
+        // GET: FavoriteChannels/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Packages == null)
+            if (id == null || _context.FavoriteChannels == null)
             {
                 return NotFound();
             }
-
-            var package = await _context.Packages
+            
+            var favoriteChannel = await _context.FavoriteChannels
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (package == null)
+            if (favoriteChannel == null)
             {
                 return NotFound();
             }
 
-            return View(package);
+            return View(favoriteChannel);
         }
 
-        // POST: Packages/Delete/5
+        // POST: FavoriteChannels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Packages == null)
+            if (_context.FavoriteChannels == null)
             {
-                return Problem("Entity set 'ChannelContext.Packages'  is null.");
+                return Problem("Entity set 'ChannelContext.FavoriteChannels'  is null.");
             }
-            var package = await _context.Packages.FindAsync(id);
-            if (package != null)
+            var favoriteChannel = await _context.FavoriteChannels.FindAsync(id);
+            if (favoriteChannel != null)
             {
-                _context.Packages.Remove(package);
+                _context.FavoriteChannels.Remove(favoriteChannel);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PackageExists(int id)
+        private bool FavoriteChannelExists(int id)
         {
-          return _context.Packages.Any(e => e.Id == id);
+          return _context.FavoriteChannels.Any(e => e.Id == id);
         }
     }
 }

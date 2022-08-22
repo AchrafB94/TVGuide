@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TVGuide.Models;
 
@@ -10,9 +11,10 @@ using TVGuide.Models;
 namespace TVGuide.Migrations
 {
     [DbContext(typeof(ChannelContext))]
-    partial class ChannelContextModelSnapshot : ModelSnapshot
+    [Migration("20220821065939_identity-fav-channels")]
+    partial class identityfavchannels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.8");
@@ -156,7 +158,7 @@ namespace TVGuide.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -226,7 +228,7 @@ namespace TVGuide.Migrations
 
                     b.HasIndex("PackageId");
 
-                    b.ToTable("Channels", (string)null);
+                    b.ToTable("Channels");
                 });
 
             modelBuilder.Entity("TVGuide.Models.FavoriteChannel", b =>
@@ -250,7 +252,7 @@ namespace TVGuide.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FavoriteChannels", (string)null);
+                    b.ToTable("FavoriteChannels");
                 });
 
             modelBuilder.Entity("TVGuide.Models.Package", b =>
@@ -264,7 +266,7 @@ namespace TVGuide.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Packages", (string)null);
+                    b.ToTable("Packages");
 
                     b.HasData(
                         new

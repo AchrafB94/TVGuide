@@ -4,9 +4,9 @@
     ViewData["Title"] = "Channel Page";
 }
 
-<center>
-<img src="@Model.channel.Logo" style="max-width: 30%; max-height: 30%"/>
-</center>
+<h1><img src="@Model.channel.Logo" style="max-width: 15%; max-height: 15%"/> @Model.channel.Name</h1>
+              @{int i = 0;}
+
             @foreach(var day in Model.programs)
             {
                 <hr />
@@ -14,7 +14,6 @@
 <div class="container table-responsive">
         <table class="table table-striped">
         <tbody>
-              @{int i = 0;}
             @foreach(Programme prg  in day) 
                 {
                     i++;

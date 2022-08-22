@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TVGuide.Models;
 
 namespace TVGuide.Controllers
 {
+    [Authorize(Policy = "IsAdmin")]
     public class AdminController : Controller
     {
         private readonly ChannelContext _context;

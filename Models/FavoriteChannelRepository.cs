@@ -21,7 +21,7 @@
 
         public List<FavoriteChannel> GetFavoriteChannels(string userId)
         {
-            var user = _context.Users.Where(u => u.Id == userId).FirstOrDefault();
+            var user = _context.Users.FirstOrDefault();
             return _context.FavoriteChannels.Where(x => x.User == user).ToList();
         }
 

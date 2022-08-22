@@ -1,13 +1,14 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations;
+
 namespace TVGuide.Models
 {
     public class FavoriteChannel
     {
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
         public int FavoritePosition { get; set; }
-        public TVGuideUser User { get; set; }
-
-        public Channel Channel { get; set; }
+        [Required] public TVGuideUser User { get; set; }
+        [Required] public Channel Channel { get; set; }
     }
 }

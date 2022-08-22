@@ -14,4 +14,5 @@ public interface IChannelRepository
     List<Programme> GetTonightProgrammes(string channelXML);
     string GetCategoryName(int IdCategory);
     string GetPackageName(int IdPackage);
+    List<Programme> GetUserProgrammes(string keywords);
 }

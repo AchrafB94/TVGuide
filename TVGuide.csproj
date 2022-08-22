@@ -26,11 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Identity\Data\" />
-    <Folder Include="Views\Home\Components\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Database\Starsat.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -98,4 +98,24 @@ public class ChannelRepository : IChannelRepository
     {
         return _context.Packages.FirstOrDefault(p => p.Id == IdPackage).Name;
     }
+
+    public List<Programme> GetUserProgrammes(string keywords)
+    {
+        List<string?> ChannelXMLIds = _context.Channels.Select(ch => ch.IdXML).ToList();
+        List<Programme> userProgrammes = new List<Programme>();
+        
+        foreach(string keyword in keywords.Split(';'))
+        {
+            userProgrammes.AddRange(ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && !string.IsNullOrEmpty(prg.Title) && prg.Title.ToLower().Contains(keyword) && prg.Stop >= DateTime.Now).ToList());
+        }
+
+        foreach(var prg in userProgrammes)
+        {
+            prg.Channel = _context.Channels.Where(ch => ch.IdXML == prg.ChannelName).FirstOrDefault();
+        }
+
+        userProgrammes = userProgrammes.OrderBy(prg => prg.Start).ToList();
+        return userProgrammes;
+        
+    }
 }

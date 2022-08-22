@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<TVGuide.Models.Channel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "STAR TV Guide Administration Panel";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>StarSat Administration</h1>
+<h1>STAR TV Guide Administration Panel</h1>
 
 <p>
     <a asp-action="Create">Create New Channel</a>
@@ -41,7 +41,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <img src="@Html.DisplayFor(modelItem => item.Logo)" style="max-height:100px; max-width:200px;" />
+                <img src="@Html.DisplayFor(modelItem => item.Logo)" style="max-height:25px; max-width:50px;" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdXML)
@@ -54,7 +54,7 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-controller="Channels" asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>

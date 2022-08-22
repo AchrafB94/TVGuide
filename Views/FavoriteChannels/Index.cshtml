@@ -1,0 +1,37 @@
+﻿@model IEnumerable<TVGuide.Models.FavoriteChannel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>My favorite channels list</h1>
+
+<p>
+    <a asp-action="Create">Add New Favorite Channel</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Position
+            </th>
+            <th>Channel</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FavoritePosition)
+            </td>
+            <td><img src="@item.Channel?.Logo" style="max-height: 10px;" /> @item.Channel?.Name</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Change Position</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Remove Favorite Channel</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
