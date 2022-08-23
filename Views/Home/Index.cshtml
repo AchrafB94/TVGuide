@@ -1,16 +1,15 @@
 ﻿@model TonightViewModel
-@{
-    ViewData["Title"] = "Home Page";
-}
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
     <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Welcome to the TV Guide</h5>
-    <p class="card-text">Consult your TV program of this day and find out which TV shows are available on satellite receivers in Tunisia and North Africa.</p>
+    <h5 class="card-title">@localizer["Welcome"]</h5>
+    <p class="card-text">@localizer["WelcomeText"]</p>
   </div>
 </div>
 <hr />
   <div>
-  <h2>  Tonight on @Model.channel.Name </h2>
+  <h2>  @localizer["Tonight"] @Model.channel.Name </h2>
 
         <div class="row no-gutters">
             <div class="col-auto">
@@ -31,12 +30,12 @@
                 }
 
                 </table>
-                    <a class="btn btn-outline-danger" asp-controller="Channels" asp-action="Details" asp-route-id="@Model.channel.Id">@Model.channel.Name Full Programme</a>
+                    <a class="btn btn-outline-danger" asp-controller="Channels" asp-action="Details" asp-route-id="@Model.channel.Id">@localizer["AllProgrammes"]</a>
                 </div>
             </div>
         </div>
   </div>
 
   <hr />
-  <h1>Now on TV</h1>
+  <h1>@localizer["Live"]</h1>
   @await Component.InvokeAsync("Now")

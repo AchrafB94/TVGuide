@@ -1,5 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using System.Globalization
+@{string direction = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft? "rtl" : "ltr";}
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentCulture.Name" dir="@direction">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,26 +31,26 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="1"><i class="fa-solid fa-clapperboard"></i> Movies</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="1"><i class="fa-solid fa-clapperboard"></i> @localizer["Movies"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="2"><i class="fa-solid fa-tv"></i> Series</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="2"><i class="fa-solid fa-tv"></i> @localizer["Series"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="3"><i class="fa-solid fa-futbol"></i> Sport</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="3"><i class="fa-solid fa-futbol"></i> @localizer["Sport"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index"asp-route-category="4"><i class="fa-solid fa-atom"></i> Documentaries</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index"asp-route-category="4"><i class="fa-solid fa-atom"></i> @localizer["Doc"]</a>
                         </li>
                          <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fa-solid fa-plus"></i> More
+                          <i class="fa-solid fa-plus"></i> @localizer["More"]
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="5"><i class="fa-solid fa-newspaper"></i> News</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="6"><i class="fa-solid fa-children"></i> Kids</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="7"><i class="fa-solid fa-music"></i> Arts</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="9"><i class="fa-solid fa-globe"></i> International</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="5"><i class="fa-solid fa-newspaper"></i> @localizer["News"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="6"><i class="fa-solid fa-children"></i> @localizer["Kids"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="7"><i class="fa-solid fa-music"></i> @localizer["Music"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="9"><i class="fa-solid fa-globe"></i> @localizer["International"]</a>
                         </div>
                       </li>
                         <li class="nav-item">
@@ -62,7 +66,7 @@
                 </div>
                  <partial name="_LoginPartial" />
                  <form class="form-inline my-2 my-lg-0 d-sm-inline-flex justify-content-between" asp-controller="Home" asp-action="Search">
-                  <input class="form-control" type="search" name="query" required minlength="4" placeholder="Search TV Series, Movies..." aria-label="Search">
+                  <input class="form-control" type="search" name="query" required minlength="4" placeholder="@localizer["Searchbox"]" aria-label="Search">
                   <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>

@@ -29,6 +29,9 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<TVGuideUser>, ApplicationUserClaimPrincipalsFactory>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddMvc().AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix);
+
+builder.Services.AddLocalization(options => { options.ResourcesPath = "Languages"; });
 
 await ProgrammeContext.Setup(builder);
 
@@ -50,6 +53,10 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+var supportedCultures = new[] { "fr", "ar", "en" };
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0]).AddSupportedCultures(supportedCultures).AddSupportedUICultures(supportedCultures);
+app.UseRequestLocalization(localizationOptions);
 
 app.MapControllerRoute(
     name: "default",
