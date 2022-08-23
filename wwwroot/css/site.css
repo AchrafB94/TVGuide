@@ -35,7 +35,7 @@ body {
     z-index: 1;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
-    width: 280px;
+    width: 285px;
     height: 160px;
     margin-right: 30px;
     cursor: pointer;
@@ -54,7 +54,7 @@ body {
     overflow-x: hidden;
     list-style: none;
     -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
+    -ms-overflow-style: scrollbar;
 }
 
 .card-gallery-logo {

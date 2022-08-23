@@ -22,7 +22,7 @@ public class ChannelRepository : IChannelRepository
 
     public List<Channel> getChannelsByCategory(int category)
     {
-        return _context.Channels.Where(ch => ch.Category.Id == category).OrderBy(ch => ch.Position).ToList();
+        return _context.Channels.Where(ch => ch.Category.Id == category).OrderBy(ch => ch.Name).ToList();
     }
 
     public List<Channel> getChannelsByPackage(int package)

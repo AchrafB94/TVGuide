@@ -1,7 +1,7 @@
 ﻿@model TVGuide.Models.ViewModel
 
 @{
-    ViewData["Title"] = "Channel Page";
+    ViewData["Title"] = Model.channel.Name;
 }
 
 <h1><img src="@Model.channel.Logo" style="max-width: 15%; max-height: 15%"/> @Model.channel.Name</h1>
@@ -44,6 +44,7 @@
                     </div>
                     <div class="modal-body">
                         <form method="post" role="post">
+                            <center>
                                 @if(!string.IsNullOrEmpty(prg.Image))
                                 {
                                     <img src="@prg.Image" style="max-width:100%" />
@@ -52,7 +53,7 @@
                                 {
                                     <img src="@Model.channel.Logo"  style="max-width:100%" />
                                 }
-
+                                </center>
                         <h5>@prg.Start.ToString("HH:mm") - @prg.Stop.ToString("HH:mm")</h5>
                         <b>@prg.Category</b>
                         <p>@prg.Description</p>

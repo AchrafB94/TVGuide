@@ -4,7 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>My Programme</h1>
+<h2>Keywords</h2>
+<div>
+@foreach(string keyword in User.FindFirst("Keywords").Value.Split(';'))
+{
+    <button type="button" class="btn btn-outline-secondary">@keyword</button>
+}
+    <button type="button" class="btn btn-primary" onclick=""><i class="fa-solid fa-plus"></i> Add Keyword</button>
+</div>
+<br />
+<h2>My Programme</h2>
 <div class="table-responsive">
     <table class="table table-hover ">
         <thead>

@@ -38,20 +38,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index"asp-route-category="4"><i class="fa-solid fa-atom"></i> Documentaries</a>
                         </li>
-                        <li class="nav-item">
+                         <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa-solid fa-plus"></i> More
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="5"><i class="fa-solid fa-newspaper"></i> News</a>
-                        </li>
-                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="6"><i class="fa-solid fa-children"></i> Kids</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="7"><i class="fa-solid fa-music"></i> Arts</a>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Index" asp-route-category="9"><i class="fa-solid fa-globe"></i> International</a>
+                        </div>
+                      </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Package" asp-route-id="1"><img src="https://www.osn.com/osn/media/OSNMedia/Images/new-base/logo.svg" height="20" /></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" ><img src="https://www.osn.com/osn/media/OSNMedia/Images/new-base/logo.svg" height="20" /></a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Package" asp-route-id="2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Canal%2B.svg/1920px-Canal%2B.svg.png" height="20" /></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Canal%2B.svg/1920px-Canal%2B.svg.png" height="20" /></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/BeIN_Sports.png" height="20" /></a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channels" asp-action="Package" asp-route-id="3"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/BeIN_Sports.png" height="20" /></a>
                         </li>
                     </ul>
                 </div>

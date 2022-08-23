@@ -1,22 +1,39 @@
 ﻿@model IEnumerable<TVGuide.Models.Channel>
+
 @{
     ViewData["Title"] = "Package";
 }
-
-<h1>Package</h1>
-
-<center><h1>All Channels</h1></center>
-<div class="thumbnails">
+<h1>@ViewBag.Header Channels</h1>
+   <section class="logo-list">
+        <div class="container">
+            <div class="row">
 @foreach (var item in Model) {
-    <a asp-action="Details" asp-route-id="@item.Id">
-    <figure class="figure">
-          <img src="@Html.DisplayFor(modelItem => item.Logo)" class="figure-img img-fluid rounded" alt="logo" style="width:100px;">
-          <figcaption class="figure-caption">@item.Name</figcaption>
-    </figure>
-    </a>
-}</div>
+    <div class="col-lg-1 col-md-2 col-3">
+        <a asp-action="Details" asp-route-id="@item.Id"><img src="@item.Logo" class="img-fluid" alt="@item.Name"></a>
+    </div>
+}
+            </div>
+        </div>
+    </section>
 
-<style>
-.thumbnails {text-align: center;}
-.thumbnails .thumbnail {display: inline-block; margin: 0 5px;}
-</style>
+
+      <style>
+    .logo-list {
+        padding: 10px 0;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        position: center;
+    }
+    .logo-list img {
+        display: inline-block;
+        max-width: 85%;
+        padding: 10px 0;
+        transition: all 0.3s ease-in-out;
+        margin-top: auto;
+        margin-bottom: auto;
+        max-height: 85%;
+    }
+    .logo-list img:hover {
+        transform: scale(1.4);
+    }
+    </style>

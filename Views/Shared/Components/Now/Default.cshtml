@@ -68,6 +68,7 @@
                     </div>
                     <div class="modal-body">
                         <form method="post" asp-controller="Channels" asp-action="Details" asp-route-id="@programme.Channel.Id" role="post">
+                            <center>
                                 @if(!string.IsNullOrEmpty(programme.Image))
                                 {
                                     <img src="@programme.Image" style="max-width:100%" />
@@ -76,11 +77,18 @@
                                 {
                                     <img src="@programme.Channel.Logo"  style="max-width:100%" />
                                 }
-
+                                </center>
                         <h5>@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</h5>
                         <b>@programme.Category</b>
-                        <p>@programme.Description</p>
-                        <div class="modal-footer">
+                                    @if (!string.IsNullOrEmpty(programme.Description))
+                                    {
+                                        <p>@programme.Description</p>
+                                    }
+                                    else
+                                    {
+                                        <p>No description is available for this programme.</p>
+                                    }
+                                    <div class="modal-footer">
                             <button type="submit" class="btn btn-outline-danger">View Full Programme</button>
                             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
                         </div>

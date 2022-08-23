@@ -28,7 +28,7 @@ namespace TVGuide.Controllers
             else
                 channels = _channelRepository.getAllChannels();
 
-            return View(channels.OrderBy(ch => ch.Name).ToList());
+            return View(channels);
         }
 
         public IActionResult Details(int id)
@@ -46,6 +46,12 @@ namespace TVGuide.Controllers
             var user = await _userManager.GetUserAsync(User);
             var userProgrammes = _channelRepository.GetUserProgrammes(user.Keywords);
             return View(userProgrammes);
+        }
+
+        public IActionResult Package(int id)
+        {
+            var channels = _channelRepository.getChannelsByPackage(id);
+            return View(channels);
         }
     }
 }
