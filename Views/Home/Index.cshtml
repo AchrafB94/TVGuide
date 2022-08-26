@@ -1,6 +1,10 @@
 ﻿@model TonightViewModel
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
+@{
+    ViewData["Title"] = "Bienvenue";
+}
+
     <div class="card">
   <div class="card-body">
     <h5 class="card-title">@localizer["Welcome"]</h5>
