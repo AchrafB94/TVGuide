@@ -120,8 +120,17 @@
   <data name="AllProgrammes" xml:space="preserve">
     <value>Tous les programmes</value>
   </data>
+  <data name="Free" xml:space="preserve">
+    <value>Chaînes gratuites</value>
+  </data>
   <data name="Live" xml:space="preserve">
     <value>En direct</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Chaînes d'information</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>Chaînes sportives</value>
   </data>
   <data name="Tonight" xml:space="preserve">
     <value>Ce soir sur </value>

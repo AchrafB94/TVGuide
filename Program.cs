@@ -2,6 +2,9 @@ using TVGuide.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using TVGuide.Areas.Identity.Data;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Database") ?? throw new InvalidOperationException("Connection string 'TVGuideContextConnection' not found.");
@@ -33,6 +36,18 @@ builder.Services.AddMvc().AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.Lan
 
 builder.Services.AddLocalization(options => { options.ResourcesPath = "Languages"; });
 
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new List<CultureInfo>
+    {
+        new CultureInfo("fr"),
+        new CultureInfo("ar")
+    };
+    options.DefaultRequestCulture = new RequestCulture("fr");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
 await ProgrammeContext.Setup(builder);
 
 var app = builder.Build();
@@ -54,9 +69,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-var supportedCultures = new[] { "fr", "ar", "en" };
-var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0]).AddSupportedCultures(supportedCultures).AddSupportedUICultures(supportedCultures);
-app.UseRequestLocalization(localizationOptions);
+app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 app.MapControllerRoute(
     name: "default",

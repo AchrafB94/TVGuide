@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TVGuide.Models;
 
@@ -24,18 +25,16 @@ namespace TVGuide.Controllers
         public IActionResult Index()
         {
             List<Programme> tonightProgrammes = new List<Programme>();
-            Channel randomChannel = new Channel();
-            do
-            {
-                randomChannel = _channelRepository.getRandomChannel();
-                if (!string.IsNullOrEmpty(randomChannel.IdXML))
-                    tonightProgrammes = _channelRepository.GetTonightProgrammes(randomChannel.IdXML);
-            }
-            while (!tonightProgrammes.All(p => !string.IsNullOrEmpty(p.Image)) || !tonightProgrammes.Any());
+            
+            Channel randomChannel = _channelRepository.getRandomChannel();
+            if (!string.IsNullOrEmpty(randomChannel.IdXML))
+                tonightProgrammes = _channelRepository.GetTonightProgrammes(randomChannel.IdXML);
 
             TonightViewModel model = new TonightViewModel();
             model.channel = randomChannel;
             model.programs = tonightProgrammes;
+            var channels = _channelRepository.getAllChannels().OrderBy(ch => ch.Name).ToList();
+
             return View(model);
         }
 
@@ -48,6 +47,12 @@ namespace TVGuide.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+        [HttpPost] public IActionResult CultureManagement(string culture)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)), new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30)});
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -8,7 +8,9 @@
   </div>
 </div>
 <hr />
-  <div>
+@if(Model.programs.Any())
+{
+<div>
   <h2>  @localizer["Tonight"] @Model.channel.Name </h2>
 
         <div class="row no-gutters">
@@ -34,8 +36,7 @@
                 </div>
             </div>
         </div>
-  </div>
-
+  </div>   
+}
   <hr />
-  <h1>@localizer["Live"]</h1>
   @await Component.InvokeAsync("Now")

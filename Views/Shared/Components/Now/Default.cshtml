@@ -1,7 +1,11 @@
 ﻿@model List<Programme>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+  <h1>@localizer["Live"]</h1>
 
             @{
-                    var featuredProgrammes = Model.Where(prg => !string.IsNullOrEmpty(prg.Image) && prg.Image != "https://media.elcinema.com/blank_photos/150x200.jpg").Take(8).ToList();
+
+                    var featuredProgrammes = Model.Where(prg => !string.IsNullOrEmpty(prg.Image) && prg.Image != "https://media.elcinema.com/blank_photos/150x200.jpg").Take(4).ToList();
                     <div class="now">
                     <div class="gallery">
                         <ul class="gallery-container">
@@ -20,87 +24,90 @@
                             </ul>
                     </div>
                     </div>
-            }
+}
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th>Channel</th>
+                    <th>Time</th>
+                    <th></th>
+                    <th>Programme</th>
+                    <th>Progress</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0;
+                }
+                @foreach (Programme programme in Model)
+                {
+                    i++;
+                    if (programme.Title.Length > 40)
+                        programme.Title = programme.Title.Substring(0, 37) + "...";
+                    double programLength = (@programme.Stop - @programme.Start).TotalMinutes;
+                    double programProgress = (DateTime.Now - @programme.Start).TotalMinutes;
+                    double percentage = 0;
+                    if (programLength > 0)
+                        percentage = programProgress * 100 / programLength;
 
-<div class="table-responsive">
-<table class="table table-hover ">
-    <thead>
-        <tr>
-            <th>Channel</th>
-            <th>Time</th>
-            <th></th>
-            <th>Programme</th>
-            <th>Progress</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{int i = 0;}
-        @foreach(Programme programme in Model)
-        {
-                i++;
-                if (programme.Title.Length > 40)
-                programme.Title = programme.Title.Substring(0, 37) + "...";
-             double programLength = (@programme.Stop - @programme.Start).TotalMinutes;            
-             double programProgress = (DateTime.Now - @programme.Start).TotalMinutes;
-             double percentage = 0;
-            if(programLength > 0)   
-                percentage = programProgress * 100 / programLength;
-
-            <tr data-toggle="modal" data-target="#exampleModal_@i">
-            <td><img src="@programme.Channel.Logo" style="max-height: 35px; max-width: 35px;"/>@programme.Channel.Name</td>
-            <td>@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</td>
-            <td>-</td>
-            <td><b>@programme.Title</b></td>
+                    <tr data-toggle="modal" data-target="#exampleModal_@i">
+                        <td><img src="@programme.Channel.Logo" style="max-height: 35px; max-width: 35px;"/>@programme.Channel.Name</td>
+                        <td>@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</td>
+                        <td>-</td>
+                        <td><b>@programme.Title</b></td>
 
                         <td scope="row">
-                                <div class="progress" style="width: 300px; height: 3px">
-                  <div class="progress-bar bg-danger" role="progressbar" style="width: @percentage%;"></div>
-                </div>
-            </td>
+                            <div class="progress" style="width: 300px; height: 3px">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: @percentage%;"></div>
+                            </div>
+                        </td>
 
-        </tr>
+                    </tr>
 
-        <div id="exampleModal_@i" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"><img src="@programme.Channel.Logo" height="30" /> @programme.Title</h5>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" asp-controller="Channels" asp-action="Details" asp-route-id="@programme.Channel.Id" role="post">
-                            <center>
-                                @if(!string.IsNullOrEmpty(programme.Image))
-                                {
-                                    <img src="@programme.Image" style="max-width:100%" />
-                                }
-                                else
-                                {
-                                    <img src="@programme.Channel.Logo"  style="max-width:100%" />
-                                }
-                                </center>
-                        <h5>@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</h5>
-                        <b>@programme.Category</b>
-                                    @if (!string.IsNullOrEmpty(programme.Description))
-                                    {
-                                        <p>@programme.Description</p>
-                                    }
-                                    else
-                                    {
-                                        <p>No description is available for this programme.</p>
-                                    }
-                                    <div class="modal-footer">
-                            <button type="submit" class="btn btn-outline-danger">View Full Programme</button>
-                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <div id="exampleModal_@i" class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><img src="@programme.Channel.Logo" height="30" /> @programme.Title</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" asp-controller="Channels" asp-action="Details" asp-route-id="@programme.Channel.Id" role="post">
+                                        <center>
+                                            @if (!string.IsNullOrEmpty(programme.Image))
+                                            {
+                                                <img src="@programme.Image" style="max-width:100%" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@programme.Channel.Logo"  style="max-width:100%" />
+                                            }
+                                        </center>
+                                        <h5>@programme.Start.ToString("HH:mm") - @programme.Stop.ToString("HH:mm")</h5>
+                                        <b>@programme.Category</b>
+                                        @if (!string.IsNullOrEmpty(programme.Description))
+                                        {
+                                            <p>@programme.Description</p>
+                                        }
+                                        else
+                                        {
+                                            <p>No description is available for this programme.</p>
+                                        }
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-outline-danger">View Full Programme</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        </form>
                     </div>
-                </div>
-            </div>
-        </div>
-    }
-    </tbody>
+                }
+            </tbody>
 </table>
-</div>
-
+ </div>
 
    
+ }

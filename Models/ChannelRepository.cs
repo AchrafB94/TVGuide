@@ -86,7 +86,7 @@ public class ChannelRepository : IChannelRepository
 
     public List<Programme> GetTonightProgrammes(string channelXML)
     {
-        return ProgrammeContext.list.Where(prg => prg.ChannelName == channelXML && prg.Start >= DateTime.Today.AddHours(20)).Take(3).ToList();
+        return ProgrammeContext.list.Where(prg => prg.ChannelName == channelXML && prg.Start >= DateTime.Now).Take(4).ToList();
     }
 
     public string GetCategoryName(int IdCategory)
@@ -117,5 +117,9 @@ public class ChannelRepository : IChannelRepository
         userProgrammes = userProgrammes.OrderBy(prg => prg.Start).ToList();
         return userProgrammes;
         
+    }
+    public List<Category> GetCategories()
+    {
+        return _context.Categories.ToList();
     }
 }

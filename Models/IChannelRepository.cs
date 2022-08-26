@@ -15,4 +15,5 @@ public interface IChannelRepository
     string GetCategoryName(int IdCategory);
     string GetPackageName(int IdPackage);
     List<Programme> GetUserProgrammes(string keywords);
+    List<Category> GetCategories();
 }
