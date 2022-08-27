@@ -117,38 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Doc" xml:space="preserve">
-    <value>Découverte</value>
+  <data name="ar" xml:space="preserve">
+    <value>Arabe</value>
   </data>
-  <data name="Footer" xml:space="preserve">
-    <value>Site développé par Achraf Bouanani</value>
-  </data>
-  <data name="International" xml:space="preserve">
-    <value>International</value>
-  </data>
-  <data name="Kids" xml:space="preserve">
-    <value>Jeunesse</value>
-  </data>
-  <data name="More" xml:space="preserve">
-    <value>Plus</value>
-  </data>
-  <data name="Movies" xml:space="preserve">
-    <value>Cinéma</value>
-  </data>
-  <data name="Music" xml:space="preserve">
-    <value>Musique</value>
-  </data>
-  <data name="News" xml:space="preserve">
-    <value>Information</value>
-  </data>
-  <data name="Searchbox" xml:space="preserve">
-    <value>Rechercher des séries télévisées, des films, etc...</value>
-  </data>
-  <data name="Series" xml:space="preserve">
-    <value>Séries</value>
-  </data>
-  <data name="Sports" xml:space="preserve">
-    <value>Sports</value>
+  <data name="fr" xml:space="preserve">
+    <value>Français</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value />

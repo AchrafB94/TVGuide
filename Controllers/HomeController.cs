@@ -38,10 +38,10 @@ namespace TVGuide.Controllers
             return View();
         }
 
-        [HttpPost] public IActionResult CultureManagement(string culture)
+        [HttpPost] public IActionResult CultureManagement(string culture, string returnUrl)
         {
             Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)), new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30)});
-            return RedirectToAction(nameof(Index));
+            return LocalRedirect(returnUrl);
         }
     }
 }

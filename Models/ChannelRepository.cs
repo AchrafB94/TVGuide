@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Xml.Linq;
 using TVGuide.Models;
 
@@ -31,7 +32,14 @@ public class ChannelRepository : IChannelRepository
     }
     public async Task<List<Programme>> GetCurrentProgrammes()
     {
-        List<string?> ChannelXMLIds = await _context.Channels.Where(ch => (ch.Package == null || ch.Package.Name == "OSN" || ch.Package.Name == "beIN")).Select(ch => ch.IdXML).ToListAsync();
+        var culture = CultureInfo.CurrentCulture.Name;
+        List<string?> ChannelXMLIds = new List<string?>();
+        if (culture == "ar")
+            ChannelXMLIds = await _context.Channels.Where(ch => (ch.Package == null || ch.Package.Name == "OSN" || ch.Package.Name == "beIN")).Select(ch => ch.IdXML).ToListAsync();
+        else if (culture == "fr")
+            ChannelXMLIds = await _context.Channels.Where(ch => (ch.Package.Name == "Canal" || ch.Package.Name == "TivuSat")).Select(ch => ch.IdXML).ToListAsync();
+
+
         List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && prg.Start <= DateTime.Now && DateTime.Now < prg.Stop ).ToList();
 
         foreach (Programme prg in list)
