@@ -139,7 +139,7 @@ public class ChannelRepository : IChannelRepository
 
     public List<Programme> GetCurrentProgrammesByChannel(string idXMLChannel)
     {
-        return ProgrammeRepository.list.Where(prg => prg.ChannelName == idXMLChannel && prg.Start >= DateTime.Now).Take(3).ToList();
+        return ProgrammeRepository.list.Where(prg => prg.ChannelName == idXMLChannel && prg.Start >= DateTime.Now).Take(2).ToList();
     }
 
     public void AddFavoriteChannel(TVGuideUser user, int IdChannel)

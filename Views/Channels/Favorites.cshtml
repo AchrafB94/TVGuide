@@ -16,11 +16,36 @@
             </div>
         </div>
     </section>
+<h2>Live</h2>
+<div class="table-responsive">
+    <table class="table  table-hover ">
+        <thead>
+            <tr>
+            <th>Channel</th>
+            <th>Now</th>
+            <th>Next</th>
+            </tr>
+        </thead>
+        <tbody>
+                @{
+                    int i = 0;
+                }
+            @foreach(var fav in Model.userFavoriteChannels)
+            {
+            <tr >
+                <td><a asp-action="Details" asp-route-id="@fav.Channel.Id" ><img src="@fav.Channel.Logo"  style="max-height: 35px; max-width: 35px;"/> </a> @fav.Channel.Name</td>
+                    @foreach(var prg in Model.favoriteChannelsCurrentProgrammes.Where(x => x.ChannelName == fav.Channel.IdXML))
+                    {
+                         i++;
+                        <td>@prg.Start.ToString("HH:mm") - <b>@prg.Title</b></td>
+                    }
+            </tr> 
+            }
 
-@foreach(var prg in Model.favoriteChannelsCurrentProgrammes)
-{
-    <p>@prg.Title</p>
-}
+        </tbody>
+    </table>
+</div>
+
 
 <h2>Keywords</h2>
 <div>
@@ -31,7 +56,7 @@
     <button type="button" class="btn btn-primary" onclick=""><i class="fa-solid fa-plus"></i> Add Keyword</button>
 </div>
 <br />
-<h2>My Programme</h2>
+<h2>My Personal Programme</h2>
 <div class="table-responsive">
     <table class="table table-hover ">
         <thead>

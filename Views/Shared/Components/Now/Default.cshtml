@@ -49,9 +49,9 @@
                         programme.Title = programme.Title.Substring(0, 37) + "...";
                     double programLength = (@programme.Stop - @programme.Start).TotalMinutes;
                     double programProgress = (DateTime.Now - @programme.Start).TotalMinutes;
-                    double percentage = 0;
+                    int percentage = 0;
                     if (programLength > 0)
-                        percentage = programProgress * 100 / programLength;
+                        percentage = Convert.ToInt32(programProgress * 100 / programLength);
 
                     <tr data-toggle="modal" data-target="#exampleModal_@i">
                         <td><img src="@programme.Channel.Logo" style="max-height: 35px; max-width: 35px;"/>@programme.Channel.Name</td>

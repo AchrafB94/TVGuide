@@ -8,17 +8,14 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage your favorite channels.">My Channels</a>
-    </li>
-    <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-controller="Channels" asp-action="Favorites" title="View your personal programme.">My Programme</a>
+        <a id="manage" class="nav-link text-dark" asp-controller="Channels" asp-action="Favorites" title="View your personal programme."><i class="fa-solid fa-heart"></i> Favorites</a>
     </li>
      <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Your account settings.">Settings</a>
+        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Your account settings."><i class="fa-solid fa-cog"></i> Settings</a>
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            <button id="logout" type="submit" class="nav-link btn btn-link text-dark"> <i class="fa-solid fa-power-off"></i> Logout</button>
         </form>
     </li>
 }
