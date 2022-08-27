@@ -1,4 +1,6 @@
-﻿using System.Xml.Linq;
+﻿using System.IO.Compression;
+using System.Net;
+using System.Xml.Linq;
 
 namespace TVGuide.Models
 {
@@ -32,7 +34,8 @@ namespace TVGuide.Models
                     using (var stream = await response.Content.ReadAsStreamAsync())
                     using (var streamReader = new StreamReader(stream))
                     {
-                        xdSource = await XDocument.LoadAsync(streamReader, LoadOptions.PreserveWhitespace, CancellationToken.None);
+                        GZipStream zip = new GZipStream(stream, CompressionMode.Decompress);
+                        xdSource = XDocument.Load(zip);
                         xdData.Root?.Add(xdSource.Root?.Elements("programme"));
                     }
                 }

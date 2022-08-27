@@ -27,10 +27,13 @@
 
                 @foreach(var programme in Model.programs)
                 {
-                                            <tr>
+                            <tr>
 
-                                            <td><img src="@programme.Image" class="img-responsive" alt="" style="max-height: 100px;"></td>
-                                            <td><p class="card-text"><b>@programme.Start.ToString("HH:mm") - @programme.Title </b> <br /> @programme.Description</p>    </td>  
+                                @if (!string.IsNullOrEmpty(programme.Image) && programme.Image != "https://media.elcinema.com/blank_photos/150x200.jpg")
+                                {
+                                    <td><img src="@programme.Image" class="img-responsive" alt="" style="max-height: 100px;"></td>
+                                }
+                                <td><p class="card-text"><b>@programme.Start.ToString("HH:mm") - @programme.Title </b> <br /> @programme.Description</p>    </td>  
                                                                                     </tr>
 
                 }

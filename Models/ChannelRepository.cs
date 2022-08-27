@@ -31,8 +31,8 @@ public class ChannelRepository : IChannelRepository
     }
     public async Task<List<Programme>> GetCurrentProgrammes()
     {
-        List<string?> ChannelXMLIds = await _context.Channels.Select(ch => ch.IdXML).ToListAsync();
-        List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && prg.Start <= DateTime.Now && DateTime.Now < prg.Stop).ToList();
+        List<string?> ChannelXMLIds = await _context.Channels.Where(ch => (ch.Package == null || ch.Package.Name == "OSN" || ch.Package.Name == "beIN")).Select(ch => ch.IdXML).ToListAsync();
+        List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && prg.Start <= DateTime.Now && DateTime.Now < prg.Stop ).ToList();
 
         foreach (Programme prg in list)
         {
@@ -77,16 +77,17 @@ public class ChannelRepository : IChannelRepository
         return list;
     }
 
-    public Channel getRandomChannel()
+
+    public TonightViewModel GetTonightProgrammes()
     {
         var rand = new Random();
-        int toSkip = rand.Next(0, _context.Channels.Count());
-        return _context.Channels.Skip(toSkip).Take(1).First();
-    }
-
-    public List<Programme> GetTonightProgrammes(string channelXML)
-    {
-        return ProgrammeContext.list.Where(prg => prg.ChannelName == channelXML && prg.Start >= DateTime.Now).Take(4).ToList();
+        int toSkip = rand.Next(0, _context.Channels.Where(ch => ch.Package.Name == "Canal" || ch.Name.Contains("Rai")).Count());
+        Channel randomChannel = _context.Channels.Where(ch => ch.Package.Name == "Canal" || ch.Name.Contains("Rai")).Skip(toSkip).Take(1).First();
+        var programmes = ProgrammeContext.list.Where(prg => prg.ChannelName == randomChannel.IdXML && prg.Start >= DateTime.Today.AddHours(19)).Take(5).ToList();
+        TonightViewModel model = new TonightViewModel();
+        model.programs = programmes;
+        model.channel = randomChannel;
+        return model;
     }
 
     public string GetCategoryName(int IdCategory)

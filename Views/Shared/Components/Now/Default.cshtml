@@ -5,7 +5,7 @@
 
             @{
 
-                    var featuredProgrammes = Model.Where(prg => !string.IsNullOrEmpty(prg.Image) && prg.Image != "https://media.elcinema.com/blank_photos/150x200.jpg").Take(4).ToList();
+                    var featuredProgrammes = Model.Where(prg => !string.IsNullOrEmpty(prg.Image) && prg.Image != "https://media.elcinema.com/blank_photos/150x200.jpg").Take(8).ToList();
                     <div class="now">
                     <div class="gallery">
                         <ul class="gallery-container">

@@ -23,17 +23,7 @@ namespace TVGuide.Controllers
         }
         public IActionResult Index()
         {
-            List<Programme> tonightProgrammes = new List<Programme>();
-            
-            Channel randomChannel = _channelRepository.getRandomChannel();
-            if (!string.IsNullOrEmpty(randomChannel.IdXML))
-                tonightProgrammes = _channelRepository.GetTonightProgrammes(randomChannel.IdXML);
-
-            TonightViewModel model = new TonightViewModel();
-            model.channel = randomChannel;
-            model.programs = tonightProgrammes;
-            var channels = _channelRepository.getAllChannels().OrderBy(ch => ch.Name).ToList();
-
+            TonightViewModel model = _channelRepository.GetTonightProgrammes();
             return View(model);
         }
 
