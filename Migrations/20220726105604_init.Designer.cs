@@ -9,7 +9,7 @@ using TVGuide.Models;
 
 namespace TVGuide.Migrations
 {
-    [DbContext(typeof(ChannelContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20220726105604_init")]
     partial class init
     {

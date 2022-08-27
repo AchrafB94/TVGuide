@@ -6,8 +6,8 @@ using TVGuide.Models;
 
 public class ChannelRepository : IChannelRepository
 {
-    private readonly ChannelContext _context;
-    public ChannelRepository(ChannelContext appDbContext)
+    private readonly ApplicationDbContext _context;
+    public ChannelRepository(ApplicationDbContext appDbContext)
     {
         _context = appDbContext;
     }
@@ -18,7 +18,7 @@ public class ChannelRepository : IChannelRepository
 
     public Channel getChannel(int channelId)
     {
-        return _context.Channels.Where(ch => ch.Id == channelId).First();
+        return _context.Channels.Include(ch => ch.Package).Where(ch => ch.Id == channelId).First();
     }
 
     public List<Channel> getChannelsByCategory(int category)
@@ -40,7 +40,7 @@ public class ChannelRepository : IChannelRepository
             ChannelXMLIds = await _context.Channels.Where(ch => (ch.Package.Name == "Canal" || ch.Package.Name == "TivuSat")).Select(ch => ch.IdXML).ToListAsync();
 
 
-        List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && prg.Start <= DateTime.Now && DateTime.Now < prg.Stop ).ToList();
+        List<Programme> list = ProgrammeRepository.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && prg.Start <= DateTime.Now && DateTime.Now < prg.Stop ).ToList();
 
         foreach (Programme prg in list)
         {
@@ -54,7 +54,7 @@ public class ChannelRepository : IChannelRepository
     public async Task<List<Programme>> GetCurrentProgrammes(int IdCategory)
     {
         List<string?> ChannelXMLIds = await _context.Channels.Where(ch => ch.Category.Id == IdCategory).Select(ch => ch.IdXML).ToListAsync();
-        List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && prg.Start <= DateTime.Now && DateTime.Now < prg.Stop).ToList();
+        List<Programme> list = ProgrammeRepository.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && prg.Start <= DateTime.Now && DateTime.Now < prg.Stop).ToList();
 
         foreach (Programme prg in list)
         {
@@ -67,14 +67,14 @@ public class ChannelRepository : IChannelRepository
 
     public List<IGrouping<DayOfWeek,Programme>> GetProgrammesByChannel(string IdXMLChannel)
     {
-        return ProgrammeContext.list?.Where(prg => prg.ChannelName == IdXMLChannel).GroupBy(prg => prg.Start.DayOfWeek).ToList();
+        return ProgrammeRepository.list?.Where(prg => prg.ChannelName == IdXMLChannel).GroupBy(prg => prg.Start.DayOfWeek).ToList();
     }
 
     public List<Programme> GetProgrammesByNameAndDescription(string query)
     {
         List<string?> ChannelXMLIds = _context.Channels.Select(ch => ch.IdXML).ToList();
         query = query.ToLower();
-        List<Programme> list = ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && ((!string.IsNullOrEmpty(prg.Title) && prg.Title.ToLower().Contains(query)) || (!string.IsNullOrEmpty(prg.Description) && prg.Description.ToLower().Contains(query)) || (!string.IsNullOrEmpty(prg.Category) && prg.Category.ToLower().Contains(query))) && prg.Stop >= DateTime.Now).OrderBy(prg => prg.Start).ToList();
+        List<Programme> list = ProgrammeRepository.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && ((!string.IsNullOrEmpty(prg.Title) && prg.Title.ToLower().Contains(query)) || (!string.IsNullOrEmpty(prg.Description) && prg.Description.ToLower().Contains(query)) || (!string.IsNullOrEmpty(prg.Category) && prg.Category.ToLower().Contains(query))) && prg.Stop >= DateTime.Now).OrderBy(prg => prg.Start).ToList();
 
 
         foreach (Programme prg in list)
@@ -91,7 +91,7 @@ public class ChannelRepository : IChannelRepository
         var rand = new Random();
         int toSkip = rand.Next(0, _context.Channels.Where(ch => ch.Package.Name == "Canal" || ch.Name.Contains("Rai")).Count());
         Channel randomChannel = _context.Channels.Where(ch => ch.Package.Name == "Canal" || ch.Name.Contains("Rai")).Skip(toSkip).Take(1).First();
-        var programmes = ProgrammeContext.list.Where(prg => prg.ChannelName == randomChannel.IdXML && prg.Start >= DateTime.Today.AddHours(19)).Take(5).ToList();
+        var programmes = ProgrammeRepository.list.Where(prg => prg.ChannelName == randomChannel.IdXML && prg.Start >= DateTime.Today.AddHours(19)).Take(5).ToList();
         TonightViewModel model = new TonightViewModel();
         model.programs = programmes;
         model.channel = randomChannel;
@@ -115,7 +115,7 @@ public class ChannelRepository : IChannelRepository
         
         foreach(string keyword in keywords.Split(';'))
         {
-            userProgrammes.AddRange(ProgrammeContext.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && !string.IsNullOrEmpty(prg.Title) && prg.Title.ToLower().Contains(keyword) && prg.Stop >= DateTime.Now).ToList());
+            userProgrammes.AddRange(ProgrammeRepository.list.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && !string.IsNullOrEmpty(prg.Title) && prg.Title.ToLower().Contains(keyword) && prg.Stop >= DateTime.Now).ToList());
         }
 
         foreach(var prg in userProgrammes)
@@ -130,5 +130,24 @@ public class ChannelRepository : IChannelRepository
     public List<Category> GetCategories()
     {
         return _context.Categories.ToList();
+    }
+
+    public List<FavoriteChannel> GetUserFavoriteChannels(TVGuideUser user)
+    {
+       return _context.FavoriteChannels.Include(fc => fc.Channel).Where(fc => fc.User == user).ToList();
+    }
+
+    public List<Programme> GetCurrentProgrammesByChannel(string idXMLChannel)
+    {
+        return ProgrammeRepository.list.Where(prg => prg.ChannelName == idXMLChannel && prg.Start >= DateTime.Now).Take(3).ToList();
+    }
+
+    public void AddFavoriteChannel(TVGuideUser user, int IdChannel)
+    {
+        var channel = _context.Channels.Find(IdChannel);
+        int position = _context.FavoriteChannels.Where(fc => fc.User == user).Count() + 1;
+        FavoriteChannel fc = new FavoriteChannel(user, channel, position);
+        _context.FavoriteChannels.Add(fc);
+        _context.SaveChanges();
     }
 }

@@ -13,9 +13,9 @@ namespace TVGuide.Controllers
     [Authorize(Policy = "IsAdmin")]
     public class PackagesController : Controller
     {
-        private readonly ChannelContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public PackagesController(ChannelContext context)
+        public PackagesController(ApplicationDbContext context)
         {
             _context = context;
         }

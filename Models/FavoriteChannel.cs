@@ -10,5 +10,16 @@ namespace TVGuide.Models
         public int FavoritePosition { get; set; }
         [Required] public TVGuideUser User { get; set; }
         [Required] public Channel Channel { get; set; }
+
+        public FavoriteChannel()
+        {
+
+        }
+        public FavoriteChannel(TVGuideUser user, Channel channel, int position)
+        {
+            this.User = user;
+            this.Channel = channel;
+            this.FavoritePosition = position;
+        }
     }
 }

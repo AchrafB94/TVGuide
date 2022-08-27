@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TVGuide.Models
 {
-    public class ChannelContext : IdentityDbContext<TVGuideUser>
+    public class ApplicationDbContext : IdentityDbContext<TVGuideUser>
     {
         protected readonly IConfiguration Configuration;
 
-        public ChannelContext(IConfiguration configuration)
+        public ApplicationDbContext(IConfiguration configuration)
         {
             Configuration = configuration;
         }

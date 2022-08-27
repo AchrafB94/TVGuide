@@ -8,9 +8,9 @@ namespace TVGuide.Controllers
     [Authorize(Policy = "IsAdmin")]
     public class AdminController : Controller
     {
-        private readonly ChannelContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public AdminController(ChannelContext context)
+        public AdminController(ApplicationDbContext context)
         {
             _context = context;
         }

@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace TVGuide.Models
 {
-    public class ProgrammeContext
+    public class ProgrammeRepository
     {
         public static List<Programme> list;
 

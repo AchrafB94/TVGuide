@@ -14,10 +14,10 @@ namespace TVGuide
     [Authorize]
     public class FavoriteChannelsController : Controller
     {
-        private readonly ChannelContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<TVGuideUser> _userManager;
 
-        public FavoriteChannelsController(ChannelContext context, UserManager<TVGuideUser> userManager)
+        public FavoriteChannelsController(ApplicationDbContext context, UserManager<TVGuideUser> userManager)
         {
             _context = context;
             _userManager = userManager;

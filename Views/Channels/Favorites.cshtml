@@ -1,7 +1,25 @@
-﻿@model IEnumerable<TVGuide.Models.Programme>
+﻿@model TVGuide.Models.UserFavoritesViewModel
 @{
     ViewData["Title"] = "My Programme";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Favorite Channels</h2>
+   <section class="logo-list">
+        <div class="container">
+            <div class="row">
+@foreach (var item in Model.userFavoriteChannels) {
+    <div class="col-lg-1 col-md-2 col-3">
+        <a asp-action="Details" asp-route-id="@item.Channel.Id"><img src="@item.Channel.Logo" class="img-fluid" alt="@item.Channel.Name"></a>
+    </div>
+}
+            </div>
+        </div>
+    </section>
+
+@foreach(var prg in Model.favoriteChannelsCurrentProgrammes)
+{
+    <p>@prg.Title</p>
 }
 
 <h2>Keywords</h2>
@@ -28,7 +46,7 @@
             </tr>
         </thead>
         <tbody>
-    @foreach(Programme prg  in Model) 
+    @foreach(Programme prg  in Model.userProgrammes) 
     {
         var length = (prg.Stop - @prg.Start).Minutes;
         <tr>

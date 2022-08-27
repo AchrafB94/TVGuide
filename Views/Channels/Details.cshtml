@@ -5,6 +5,11 @@
 }
 
 <h1><img src="@Model.channel.Logo" style="max-width: 15%; max-height: 15%"/> @Model.channel.Name</h1>
+<form asp-controller="Channels" asp-action="AddFavorite"  asp-route-IdChannel="@Model.channel.Id" method="post">
+    <button type="submit" class="btn btn-outline-danger"><i class="fa-solid fa-heart"></i> Add channel to my favorites</button>
+</form>
+<p>@Model.channel.Package?.Name</p>
+
               @{int i = 0;}
 
             @foreach(var day in Model.programs)
@@ -20,11 +25,19 @@
                  
              <tr data-toggle="modal" data-target="#exampleModal_@i">
                         <td>@prg.Start.ToString("HH:mm")</td>
-            <td><img src="@prg.Image" height="25"/> <b>@prg.Title</b></td>
-                            <td>@prg.Category</td>
+                        <td><img src="@prg.Image" height="25"/> <b>@prg.Title</b> @if (prg.Start <= DateTime.Now && prg.Stop >= DateTime.Now)
+                            {
+                                <img src="~/images/live.gif" style="height: 1rem;" />
+                            }
+                        </td>
+                        <td>@prg.Category</td>
                             <td><button class="btn btn-outline-danger"> <i class="fa-solid fa-info"></i></button></td>
         </tr>
-                             <div id="exampleModal_@i" class="modal" tabindex="-1" role="dialog">
+
+
+
+
+         <div id="exampleModal_@i" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

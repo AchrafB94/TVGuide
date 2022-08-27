@@ -11,15 +11,14 @@ var connectionString = builder.Configuration.GetConnectionString("Database") ?? 
 
 // Add services to the container.
 builder.Services.AddScoped<IChannelRepository,ChannelRepository>();
-builder.Services.AddScoped<IFavoriteChannelRepository,FavoriteChannelRepository>();
-builder.Services.AddDbContext<ChannelContext>();
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 builder.Services.AddIdentity<TVGuideUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireNonAlphanumeric = false;
 })
-    .AddEntityFrameworkStores<ChannelContext>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
@@ -48,7 +47,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = supportedCultures;
 });
 
-await ProgrammeContext.Setup(builder);
+await ProgrammeRepository.Setup(builder);
 
 var app = builder.Build();
 

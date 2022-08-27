@@ -15,4 +15,8 @@ public interface IChannelRepository
     string GetPackageName(int IdPackage);
     List<Programme> GetUserProgrammes(string keywords);
     List<Category> GetCategories();
+    List<FavoriteChannel> GetUserFavoriteChannels(TVGuideUser user);
+
+    List<Programme> GetCurrentProgrammesByChannel(string idXMLChannel);
+    void AddFavoriteChannel(TVGuideUser user, int IdChannel);
 }

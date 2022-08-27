@@ -10,7 +10,7 @@ using TVGuide.Models;
 
 namespace TVGuide.Migrations
 {
-    [DbContext(typeof(ChannelContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20220821065939_identity-fav-channels")]
     partial class identityfavchannels
     {

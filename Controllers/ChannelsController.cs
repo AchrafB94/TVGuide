@@ -45,7 +45,28 @@ namespace TVGuide.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var userProgrammes = _channelRepository.GetUserProgrammes(user.Keywords);
-            return View(userProgrammes);
+            var userFavoriteChannels = _channelRepository.GetUserFavoriteChannels(user);
+            List<Programme> favoriteChannelsCurrentProgrammes = new List<Programme>();
+            foreach(var favoriteChannel in userFavoriteChannels)
+            {
+                var favoriteChannelCurrentProgrammes = _channelRepository.GetCurrentProgrammesByChannel(favoriteChannel.Channel.IdXML);
+                favoriteChannelsCurrentProgrammes.AddRange(favoriteChannelCurrentProgrammes);
+            }
+
+            var vm = new UserFavoritesViewModel();
+            vm.userFavoriteChannels = userFavoriteChannels;
+            vm.favoriteChannelsCurrentProgrammes = favoriteChannelsCurrentProgrammes;
+            vm.userProgrammes = userProgrammes;
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddFavorite(int IdChannel)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            _channelRepository.AddFavoriteChannel(user, IdChannel);
+            return RedirectToAction(nameof(Favorites));
         }
 
         public IActionResult Package(int id)

@@ -13,9 +13,9 @@ namespace TVGuide.Controllers
     [Authorize(Policy = "CanManageChannels")]
     public class CategoriesController : Controller
     {
-        private readonly ChannelContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CategoriesController(ChannelContext context)
+        public CategoriesController(ApplicationDbContext context)
         {
             _context = context;
         }
