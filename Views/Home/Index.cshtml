@@ -14,36 +14,39 @@
 <hr />
 @if(Model.programs.Any())
 {
-<div>
-  <h2>  @localizer["Tonight"] @Model.channel.Name </h2>
+    <h2>  @localizer["Tonight"] @Model.channel.Name </h2>
 
-        <div class="row no-gutters">
-            <div class="col-auto">
-                <img src="@Model.channel.Logo" class="img-fluid" alt="" style="max-height: 200px; max-width: 200px;">
-            </div>
-            <div class="col">
-                <div class="card-block px-2 table-responsive">
-                                        <table class="table">
-
-                @foreach(var programme in Model.programs)
-                {
-                            <tr>
-
-                                @if (!string.IsNullOrEmpty(programme.Image) && programme.Image != "https://media.elcinema.com/blank_photos/150x200.jpg")
-                                {
-                                    <td><img src="@programme.Image" class="img-responsive" alt="" style="max-height: 100px;"></td>
-                                }
-                                <td><p class="card-text"><b>@programme.Start.ToString("HH:mm") - @programme.Title </b> <br /> @programme.Description</p>    </td>  
-                                                                                    </tr>
-
-                }
-
-                </table>
-                    <a class="btn btn-outline-danger" asp-controller="Channels" asp-action="Details" asp-route-id="@Model.channel.Id">@localizer["AllProgrammes"]</a>
-                </div>
-            </div>
-        </div>
-  </div>   
+ <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+       <img src="@Model.channel.Logo" class="img-fluid" alt="" style="max-height: 200px; max-width: 200px; position: absolute; z-index: 1; margin: 15px;">
+      @{var firstProgramme = Model.programs.First();}
+   <div class="carousel-item active" >
+      <img src="@firstProgramme.Image" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h1>@firstProgramme.Start.ToString("HH:mm") - @firstProgramme.Title</h1>
+        <p>@firstProgramme.Description</p>
+      </div>
+    </div>
+  @foreach(var programme in Model.programs.Skip(1))
+    {
+    <div class="carousel-item" >
+      <img src="@programme.Image" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h1>@programme.Start.ToString("HH:mm") - @programme.Title</h1>
+        <p>@programme.Description</p>
+      </div>
+    </div>
+    }
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 }
-  <hr />
+
   @await Component.InvokeAsync("Now")

@@ -5,7 +5,7 @@
 
             @{
 
-                    var featuredProgrammes = Model.Where(prg => !string.IsNullOrEmpty(prg.Image) && prg.Image != "https://media.elcinema.com/blank_photos/150x200.jpg").Take(8).ToList();
+                    var featuredProgrammes = Model.Where(prg => !string.IsNullOrEmpty(prg.Image) && prg.Image != "https://media.elcinema.com/blank_photos/150x200.jpg").Take(12).ToList();
                     <div class="now">
                     <div class="gallery">
                         <ul class="gallery-container">
@@ -16,7 +16,7 @@
                                 <div class="gallery-card-bg" ></div>
                                 <img class="card-gallery-logo" src="@show.Image"/>
                                 <div class="gallery-card-infos">
-                                <span>@show.Title</span><h6><img src="@show.Channel.Logo" style="max-height: 50px; max-width: 50px;"/></h6>
+                                <span><b>@show.Title</b></span><h6><img src="@show.Channel.Logo" style="max-height: 50px; max-width: 50px;"/></h6>
                                 </div>
                             </a>
                         </li>
