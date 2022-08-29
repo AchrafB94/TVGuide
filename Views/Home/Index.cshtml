@@ -16,6 +16,7 @@
 {
     <h2>  @localizer["Tonight"] @Model.channel.Name </h2>
 
+    <div class="container">
  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
        <img src="@Model.channel.Logo" class="img-fluid" alt="" style="max-height: 20%; max-width: 20%; position: absolute; z-index: 1; margin: 15px;">
@@ -23,8 +24,8 @@
    <div class="carousel-item active" >
       <img src="@firstProgramme.Image" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h1>@firstProgramme.Start.ToString("HH:mm") - @firstProgramme.Title</h1>
-        <p>@firstProgramme.Description</p>
+        <h1 style="text-shadow: 2px 2px black;">@firstProgramme.Start.ToString("HH:mm") - @firstProgramme.Title</h1>
+        <p style="text-shadow: 2px 2px black;">@firstProgramme.Description</p>
       </div>
     </div>
   @foreach(var programme in Model.programs.Skip(1))
@@ -32,8 +33,8 @@
     <div class="carousel-item" >
       <img src="@programme.Image" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h1>@programme.Start.ToString("HH:mm") - @programme.Title</h1>
-        <p>@programme.Description</p>
+        <h1 style="text-shadow: 2px 2px black;">@programme.Start.ToString("HH:mm") - @programme.Title</h1>
+        <p style="text-shadow: 2px 2px black;">@programme.Description</p>
       </div>
     </div>
     }
@@ -46,6 +47,7 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
+</div>
 </div>
 }
 

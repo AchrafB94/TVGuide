@@ -88,9 +88,10 @@ public class ChannelRepository : IChannelRepository
 
     public TonightViewModel GetTonightProgrammes()
     {
+        var channels = _context.Channels.Where(ch => (ch.Package.Name == "Canal" || ch.Name.Contains("Rai")) && !ch.Name.Contains("MAX") && !ch.Name.Contains("360") && !ch.Name.Contains("MultiSports"));
         var rand = new Random();
-        int toSkip = rand.Next(0, _context.Channels.Where(ch => ch.Package.Name == "Canal" || ch.Name.Contains("TivuSat")).Count());
-        Channel randomChannel = _context.Channels.Where(ch => ch.Package.Name == "Canal" || ch.Name.Contains("TivuSat")).Skip(toSkip).Take(1).First();
+        int toSkip = rand.Next(0, channels.Count());
+        Channel randomChannel = channels.Skip(toSkip).Take(1).First();
         var programmes = ProgrammeRepository.list.Where(prg => prg.ChannelName == randomChannel.IdXML && prg.Start >= DateTime.Today.AddHours(20)).Take(3).ToList();
         TonightViewModel model = new TonightViewModel();
         model.programs = programmes;
