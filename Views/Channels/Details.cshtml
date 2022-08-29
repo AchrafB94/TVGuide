@@ -9,7 +9,7 @@
     <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-heart"></i> Add to my favorites</button>
 </form>
 <br />
-<a asp-action="Package" asp-route-id="@Model.channel.Package.Id" ><img src="@Model.channel.Package?.Logo" style="max-height: 10%; max-width: 10%; align-self:flex-end" /></a>
+<a asp-action="Package" asp-route-id="@Model.channel.Package?.Id" ><img src="@Model.channel.Package?.Logo" style="max-height: 10%; max-width: 10%; align-self:flex-end" /></a>
 </center>
 
               @{int i = 0;}

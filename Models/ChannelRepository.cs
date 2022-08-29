@@ -92,7 +92,7 @@ public class ChannelRepository : IChannelRepository
         var rand = new Random();
         int toSkip = rand.Next(0, channels.Count());
         Channel randomChannel = channels.Skip(toSkip).Take(1).First();
-        var programmes = ProgrammeRepository.list.Where(prg => prg.ChannelName == randomChannel.IdXML && prg.Start >= DateTime.Today.AddHours(20)).Take(3).ToList();
+        var programmes = ProgrammeRepository.list.Where(prg => prg.ChannelName == randomChannel.IdXML && prg.Start >= DateTime.Today.AddHours(19)).Take(3).ToList();
         TonightViewModel model = new TonightViewModel();
         model.programs = programmes;
         model.channel = randomChannel;
