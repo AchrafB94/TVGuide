@@ -3,12 +3,14 @@
 @{
     ViewData["Title"] = Model.channel.Name;
 }
-
-<h1><img src="@Model.channel.Logo" style="max-width: 15%; max-height: 15%"/> @Model.channel.Name</h1>
+<center>
+  <h1><img src="@Model.channel.Logo" style="max-width: 15%; max-height: 15%"/></h1>  
 <form asp-controller="Channels" asp-action="AddFavorite"  asp-route-IdChannel="@Model.channel.Id" method="post">
-    <button type="submit" class="btn btn-outline-danger"><i class="fa-solid fa-heart"></i> Add channel to my favorites</button>
+    <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-heart"></i> Add to my favorites</button>
 </form>
-<p>@Model.channel.Package?.Name</p>
+<br />
+<a asp-action="Package" asp-route-id="@Model.channel.Package.Id" ><img src="@Model.channel.Package?.Logo" style="max-height: 10%; max-width: 10%; align-self:flex-end" /></a>
+</center>
 
               @{int i = 0;}
 

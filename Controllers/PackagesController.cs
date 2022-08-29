@@ -55,7 +55,7 @@ namespace TVGuide.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Package package)
+        public async Task<IActionResult> Create([Bind("Id,Name,Logo")] Package package)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace TVGuide.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Package package)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Logo")] Package package)
         {
             if (id != package.Id)
             {
