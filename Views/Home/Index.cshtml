@@ -14,12 +14,13 @@
 <hr />
 @if(Model.programs.Any())
 {
-    <h2>  @localizer["Tonight"] @Model.channel.Name </h2>
+    <h2> <img src="@Model.channel.Logo" class="img-fluid" alt="" style="max-height:2rem; max-width: 10%;">  @localizer["Tonight"] @Model.channel.Name </h2>
 
     <div class="container">
- <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+ <center>
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="width: 70%;">
   <div class="carousel-inner">
-       <img src="@Model.channel.Logo" class="img-fluid" alt="" style="max-height: 20%; max-width: 20%; position: absolute; z-index: 1; margin: 15px;">
+       
       @{var firstProgramme = Model.programs.First();}
    <div class="carousel-item active" >
       <img src="@firstProgramme.Image" class="d-block w-100" alt="...">
@@ -48,6 +49,7 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+</center>
 </div>
 }
 
