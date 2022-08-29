@@ -28,7 +28,7 @@ public class ChannelRepository : IChannelRepository
 
     public List<Channel> getChannelsByPackage(int package)
     {
-        return _context.Channels.Where(ch => ch.Package.Id == package).OrderBy(ch => ch.Position).ToList();
+        return _context.Channels.Include(ch => ch.Package).Where(ch => ch.Package.Id == package).OrderBy(ch => ch.Position).ToList();
     }
     public async Task<List<Programme>> GetCurrentProgrammes()
     {
@@ -89,8 +89,8 @@ public class ChannelRepository : IChannelRepository
     public TonightViewModel GetTonightProgrammes()
     {
         var rand = new Random();
-        int toSkip = rand.Next(0, _context.Channels.Where(ch => ch.Package.Name == "Canal" || ch.Name.Contains("Rai")).Count());
-        Channel randomChannel = _context.Channels.Where(ch => ch.Package.Name == "Canal" || ch.Name.Contains("Rai")).Skip(toSkip).Take(1).First();
+        int toSkip = rand.Next(0, _context.Channels.Where(ch => ch.Package.Name == "Canal" || ch.Name.Contains("TivuSat")).Count());
+        Channel randomChannel = _context.Channels.Where(ch => ch.Package.Name == "Canal" || ch.Name.Contains("TivuSat")).Skip(toSkip).Take(1).First();
         var programmes = ProgrammeRepository.list.Where(prg => prg.ChannelName == randomChannel.IdXML && prg.Start >= DateTime.Today.AddHours(20)).Take(3).ToList();
         TonightViewModel model = new TonightViewModel();
         model.programs = programmes;

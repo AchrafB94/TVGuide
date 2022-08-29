@@ -69,6 +69,13 @@ namespace TVGuide.Controllers
             return RedirectToAction(nameof(Favorites));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> RemoveFavorite(int IdChannel)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            return RedirectToAction(nameof(Favorites));
+        }
+
         public IActionResult Package(int id)
         {
             var channels = _channelRepository.getChannelsByPackage(id);

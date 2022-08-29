@@ -1,12 +1,24 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using TVGuide.Models
+@using Microsoft.AspNetCore.Authorization
 
 @inject SignInManager<TVGuideUser> SignInManager
 @inject UserManager<TVGuideUser> UserManager
+@inject IAuthorizationService authorizationService
+
+@{
+    var isAdmin = await authorizationService.AuthorizeAsync(User, "IsAdmin");
+}
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    if(isAdmin.Succeeded)
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-controller="Admin" asp-action="Index"><i class="fa-solid fa-lock"></i> Administration</a>
+        </li>   
+    }
     <li class="nav-item">
         <a id="manage" class="nav-link text-dark" asp-controller="Channels" asp-action="Favorites" title="View your personal programme."><i class="fa-solid fa-heart"></i> Favorites</a>
     </li>

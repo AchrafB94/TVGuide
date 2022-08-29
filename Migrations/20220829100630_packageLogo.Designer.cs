@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TVGuide.Models;
 
@@ -10,9 +11,10 @@ using TVGuide.Models;
 namespace TVGuide.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ChannelContextModelSnapshot : ModelSnapshot
+    [Migration("20220829100630_packageLogo")]
+    partial class packageLogo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.8");

@@ -31,8 +31,12 @@
                             }
                         </td>
                         <td>@prg.Category</td>
-                            <td><button class="btn btn-outline-danger"> <i class="fa-solid fa-info"></i></button></td>
-        </tr>
+                        <td>@if (!string.IsNullOrEmpty(prg.Image) && !string.IsNullOrEmpty(prg.Description))
+                            {
+                                <button class="btn btn-outline-danger"> <i class="fa-solid fa-info"></i></button>
+                            }
+                        </td>
+                    </tr>
 
 
 
