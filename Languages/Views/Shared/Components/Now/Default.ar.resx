@@ -129,6 +129,9 @@
   <data name="Live" xml:space="preserve">
     <value>مباشر</value>
   </data>
+  <data name="NoDescription" xml:space="preserve">
+    <value>لا يوجد وصف متاح لهذا البرنامج.</value>
+  </data>
   <data name="Progress" xml:space="preserve">
     <value>شريط التقدم</value>
   </data>

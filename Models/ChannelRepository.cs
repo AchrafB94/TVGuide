@@ -38,7 +38,7 @@ public class ChannelRepository : IChannelRepository
 
     public async Task<XDocument> SetupProgrammes()
     {
-        XDocument? xdData = new XDocument(new XElement("tv"));
+        XDocument xdData = new XDocument(new XElement("tv"));
         List<string> xmlSources = new List<string>();
         XDocument xdSource;
 
@@ -64,11 +64,12 @@ public class ChannelRepository : IChannelRepository
                 {
                     GZipStream zip = new GZipStream(stream, CompressionMode.Decompress);
                     xdSource = XDocument.Load(zip);
-                    xdData.Root?.Add(xdSource.Root?.Elements("programme"));
+                    xdData.Root.Add(xdSource.Root?.Elements("programme"));
                 }
             }
         }
-
+        var channelXMLids = _context.Channels.Select(ch => ch.IdXML).ToList();
+        xdData.Root.Elements("programme").Where(prg => !channelXMLids.Contains(prg.Element("channel").Value)).Remove();
         xdData.Save("xml/programmes.xml");
         return xdData;
     }

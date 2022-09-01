@@ -1,10 +1,9 @@
 ﻿@model TVGuide.Models.ViewModel
-
 @{
     ViewData["Title"] = Model.channel.Name;
 }
 <center>
-  <h1><img src="@Model.channel.Logo" style="max-width: 15%; max-height: 15%"/></h1>  
+  <h1><img src="@Model.channel.Logo" style="max-width: 30%; max-height: 30%"/></h1>  
 <form asp-controller="Channels" asp-action="AddFavorite"  asp-route-IdChannel="@Model.channel.Id" method="post">
     <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-heart"></i> Add to my favorites</button>
 </form>
@@ -16,8 +15,9 @@
 
             @foreach(var day in Model.programs)
             {
+                var culture = System.Threading.Thread.CurrentThread.CurrentCulture;
                 <hr />
-                <h2>@day.Key</h2>
+                <h2>@day.First().Start.ToString("dddd",culture)</h2>
 <div class="container table-responsive">
         <table class="table table-striped">
         <tbody>

@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<TVGuide.Models.Channel>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{
     ViewData["Title"] = "Channels";
 }
-<h1>@ViewBag.Header Channels</h1>
+<h1>@localizer["Title_"+ViewBag.Header]</h1>
    <section class="logo-list">
         <div class="container">
             <div class="row">
