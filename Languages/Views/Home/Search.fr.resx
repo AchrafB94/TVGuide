@@ -117,16 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Category" xml:space="preserve">
+    <value>Catégorie</value>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>Chaîne</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Jour</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="PageTitle" xml:space="preserve">
-    <value>Bienvenue</value>
+    <value>Recherche</value>
   </data>
-  <data name="Tonight" xml:space="preserve">
-    <value>Ce soir sur </value>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Résultats de recherche pour: </value>
   </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Bienvenue dans le guide STAR TV!</value>
+  <data name="Time" xml:space="preserve">
+    <value>Heure</value>
   </data>
-  <data name="WelcomeText" xml:space="preserve">
-    <value>Consultez votre programme TV de ce jour et découvrez quelles émissions TV sont disponibles sur les récepteurs satellites.</value>
+  <data name="Title" xml:space="preserve">
+    <value>Titre</value>
   </data>
 </root>

@@ -1,19 +1,21 @@
 ﻿@model List<Programme>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
 @{
-    ViewData["Title"] = "Search";
+    ViewData["Title"] = @localizer["PageTitle"];
 }
 
-<h2>Search results for: '@ViewBag.SearchQuery'</h2>
+<h2>@localizer["SearchResults"] '@ViewBag.SearchQuery'</h2>
 <div class="table-responsive">
     <table class="table table-hover ">
         <thead>
             <tr>
-                <th scope="col">Channel</th>
-                <th scope="col">Day</th>
-                <th scope="col">Time</th>
-                <th scope="col">Programme</th>
-                <th scope="col">Category</th>
-                <th scope="col">Description</th>
+                <th scope="col">@localizer["Channel"]</th>
+                <th scope="col">@localizer["Day"]</th>
+                <th scope="col">@localizer["Time"]</th>
+                <th scope="col">@localizer["Title"]</th>
+                <th scope="col">@localizer["Category"]</th>
+                <th scope="col">@localizer["Description"]</th>
             </tr>
         </thead>
         <tbody>

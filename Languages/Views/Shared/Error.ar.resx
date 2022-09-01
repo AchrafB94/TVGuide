@@ -117,16 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Bienvenue</value>
+  <data name="Error" xml:space="preserve">
+    <value>خطأ</value>
   </data>
-  <data name="Tonight" xml:space="preserve">
-    <value>Ce soir sur </value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Bienvenue dans le guide STAR TV!</value>
-  </data>
-  <data name="WelcomeText" xml:space="preserve">
-    <value>Consultez votre programme TV de ce jour et découvrez quelles émissions TV sont disponibles sur les récepteurs satellites.</value>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>حدث خطأ أثناء معالجة طلبك.</value>
   </data>
 </root>

@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Admin" xml:space="preserve">
-    <value>Administration</value>
+  <data name="Error" xml:space="preserve">
+    <value>Erreur</value>
   </data>
-  <data name="Favorites" xml:space="preserve">
-    <value>Favoris</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>Se Connecter</value>
-  </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Se Deconnecter</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>Inscription</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Paramétres</value>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Une erreur s'est produite lors du traitement de votre demande.</value>
   </data>
 </root>
