@@ -120,6 +120,9 @@
   <data name="Doc" xml:space="preserve">
     <value>وثائقية</value>
   </data>
+  <data name="Entertainment" xml:space="preserve">
+    <value>ترفيهية</value>
+  </data>
   <data name="International" xml:space="preserve">
     <value>عالمية</value>
   </data>
@@ -135,6 +138,9 @@
   <data name="Music" xml:space="preserve">
     <value>موسيقى</value>
   </data>
+  <data name="National" xml:space="preserve">
+    <value>وطنية</value>
+  </data>
   <data name="News" xml:space="preserve">
     <value>أخبار</value>
   </data>
@@ -146,8 +152,5 @@
   </data>
   <data name="Sports" xml:space="preserve">
     <value>رياضة</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
 </root>

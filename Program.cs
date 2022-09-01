@@ -54,8 +54,6 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = supportedCultures;
 });
 
-await ProgrammeRepository.Setup(builder);
-
 var app = builder.Build();
 
 
