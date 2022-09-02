@@ -69,7 +69,7 @@ public class ChannelRepository : IChannelRepository
             }
         }
         var channelXMLids = _context.Channels.Select(ch => ch.IdXML).ToList();
-        xdData.Root.Elements("programme").Where(prg => !channelXMLids.Contains(prg.Element("channel").Value)).Remove();
+        xdData.Root.Elements("programme").Where(prg => !channelXMLids.Contains(prg.Attribute("channel").Value)).Remove();
         xdData.Save("xml/programmes.xml");
         return xdData;
     }
