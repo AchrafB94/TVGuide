@@ -154,9 +154,10 @@ public class ChannelRepository : IChannelRepository
         var rand = new Random();
         int toSkip = rand.Next(0, channels.Count());
         Channel randomChannel = channels.Skip(toSkip).Take(1).First();
-        var programmes = _programmes.Where(prg => prg.ChannelName == randomChannel.IdXML && prg.Start >= DateTime.Today.AddHours(19)).Take(3).ToList();
+        var programmes = _programmes.Where(prg => prg.ChannelName == randomChannel.IdXML && prg.Start >= DateTime.Today.AddHours(20)).FirstOrDefault();
+        programmes.Channel = randomChannel;
         TonightViewModel model = new TonightViewModel();
-        model.programs = programmes;
+        model.programme = programmes;
         model.channel = randomChannel;
         return model;
     }

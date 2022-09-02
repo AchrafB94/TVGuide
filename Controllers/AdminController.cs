@@ -101,6 +101,7 @@ namespace TVGuide.Controllers
                 {
                     channel.Category = _context.Categories.First(c => c.Id == IdCategory);
                     if (IdPackage != 0) channel.Package = _context.Packages.First(p => p.Id == IdPackage);
+                    else channel.Package = null;
                     _context.Update(channel);
                     await _context.SaveChangesAsync();
                 }
