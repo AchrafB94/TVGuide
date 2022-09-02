@@ -1,4 +1,6 @@
 ﻿@model TVGuide.Models.UserFavoritesViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
 @{
     ViewData["Title"] = "My Programme";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,29 +19,29 @@
         </div>
     </section>
 <h2>Live</h2>
-<div class="table-responsive">
-    <table class="table  table-hover ">
-        <thead>
-            <tr>
-            <th>Channel</th>
-            <th>Now</th>
-            <th>Next</th>
-            </tr>
-        </thead>
-        <tbody>
-                @{
-                    int i = 0;
-                }
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th>@localizer["Channel"]</th>
+                    <th>@localizer["Now"]</th>
+                </tr>
+            </thead>
+            <tbody>
             @foreach(var fav in Model.userFavoriteChannels)
             {
-            <tr >
-                <td><a asp-action="Details" asp-route-id="@fav.Channel.Id" ><img src="@fav.Channel.Logo"  style="max-height: 35px; max-width: 35px;"/> </a> @fav.Channel.Name</td>
-                    @foreach(var prg in Model.favoriteChannelsCurrentProgrammes.Where(x => x.ChannelName == fav.Channel.IdXML))
-                    {
-                         i++;
-                        <td>@prg.Start.ToString("HH:mm") - <b>@prg.Title</b></td>
-                    }
-            </tr> 
+               <tr>
+                        <td><img src="@fav.Channel.Logo" style="max-height: 35px; max-width: 35px;"/>@fav.Channel.Name</td>
+                        <td><table>
+                        @foreach(var programme in Model.favoriteChannelsCurrentProgrammes.Where(x => x.ChannelName == fav.Channel.IdXML))
+                        {
+                            <tr>
+                            <td>@programme.Start.ToString("HH:mm") - <b>@programme.Title</b></td>
+                            </tr>
+                        }
+                            </table>
+                        </td>
+               </tr>
             }
 
         </tbody>
@@ -66,7 +68,6 @@
                 <th scope="col">Hour</th>
                 <th scope="col">Length</th>
                 <th scope="col">Title</th>
-                <th scope="col">Description</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -80,7 +81,6 @@
             <td scope="row"><p>@prg.Start.ToString("HH:mm")</p></td>
             <td>@length Minutes.</td>
             <td><b>@prg.Title</b></td>
-            <td>@prg.Description</td>
             <td><img src="@prg.Image" style="max-height: 50px;"/></td>
         </tr>
     }
