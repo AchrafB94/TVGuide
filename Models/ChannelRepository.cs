@@ -99,7 +99,7 @@ public class ChannelRepository : IChannelRepository
         if (culture == "ar")
             ChannelXMLIds = await _context.Channels.Where(ch => (ch.Package == null || ch.Package.Name == "OSN" || ch.Package.Name == "beIN")).Select(ch => ch.IdXML).ToListAsync();
         else if (culture == "fr")
-            ChannelXMLIds = await _context.Channels.Where(ch => (ch.Package.Name == "Canal" || ch.Package.Name == "TivuSat")).Select(ch => ch.IdXML).ToListAsync();
+            ChannelXMLIds = await _context.Channels.Where(ch => (ch.Package.Name == "Canal" || ch.Package.Name == "Hotbird")).Select(ch => ch.IdXML).ToListAsync();
 
 
         List<Programme> list = _programmes.Where(prg => ChannelXMLIds.Contains(prg.ChannelName) && prg.Start <= DateTime.Now && DateTime.Now < prg.Stop ).ToList();
