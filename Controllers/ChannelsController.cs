@@ -44,7 +44,7 @@ namespace TVGuide.Controllers
         public async Task<IActionResult> Favorites()
         {
             var user = await _userManager.GetUserAsync(User);
-            var userProgrammes = _channelRepository.GetUserProgrammes(user.Keywords);
+            var userProgrammes = string.IsNullOrEmpty(user.Keywords) ? new List<Programme>() : _channelRepository.GetUserProgrammes(user.Keywords);
             var userFavoriteChannels = _channelRepository.GetUserFavoriteChannels(user);
             List<Programme> favoriteChannelsCurrentProgrammes = new List<Programme>();
             foreach(var favoriteChannel in userFavoriteChannels)
