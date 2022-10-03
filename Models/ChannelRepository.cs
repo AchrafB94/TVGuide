@@ -155,11 +155,17 @@ public class ChannelRepository : IChannelRepository
         int toSkip = rand.Next(0, channels.Count());
         Channel randomChannel = channels.Skip(toSkip).Take(1).First();
         var programmes = _programmes.Where(prg => prg.ChannelName == randomChannel.IdXML && prg.Start >= DateTime.Today.AddHours(20)).FirstOrDefault();
-        programmes.Channel = randomChannel;
-        TonightViewModel model = new TonightViewModel();
-        model.programme = programmes;
-        model.channel = randomChannel;
-        return model;
+        if (programmes != null)
+        {
+            programmes.Channel = randomChannel;
+            TonightViewModel model = new TonightViewModel();
+            model.programme = programmes;
+            model.channel = randomChannel;
+            return model;
+        }
+        else
+            return new TonightViewModel();
+
     }
 
     public string GetCategoryName(int IdCategory)

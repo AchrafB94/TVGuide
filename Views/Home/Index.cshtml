@@ -12,7 +12,7 @@
   </div>
 </div>
 <hr />
-@if(Model.programme != null)
+@if(Model != null && Model.programme != null)
 {
               var firstProgramme = Model.programme;
     <h2> <a asp-controller="Channels" asp-action="Details" asp-route-id="@Model.channel.Id" ><img src="@Model.channel.Logo" class="img-fluid" alt="" style="max-height:3rem; max-width: 10%;"></a> @localizer["Tonight"] @Model.channel.Name</h2>
