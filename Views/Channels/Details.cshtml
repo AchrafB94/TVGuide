@@ -10,15 +10,20 @@
 <br />
 <a asp-action="Package" asp-route-id="@Model.channel.Package?.Id" ><img src="@Model.channel.Package?.Logo" style="max-height: 10%; max-width: 10%; align-self:flex-end" /></a>
 </center>
+@{int i = 0;}
 
-              @{int i = 0;}
-
-            @foreach(var day in Model.programs)
+<div class="container table-responsive">
+<div class="container">
+  <div class="row">
+                  @foreach(var day in Model.programs)
             {
+ 
                 var culture = System.Threading.Thread.CurrentThread.CurrentCulture;
+                                   <div class="col-sm">
                 <hr />
                 <h2>@day.First().Start.ToString("dddd",culture)</h2>
 <div class="container table-responsive">
+
         <table class="table table-striped">
         <tbody>
             @foreach(Programme prg  in day) 
@@ -78,5 +83,12 @@
     </tbody>
     </table>
 </div>
+    </div>
             }
+  </div>
+</div>
+</div>
+              
+
+
             

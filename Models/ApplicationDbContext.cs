@@ -40,8 +40,8 @@ namespace TVGuide.Models
             });
 
             modelBuilder.Entity<TVGuideUser>().HasMany(u => u.favoriteChannels).WithOne(fc => fc.User);
-            modelBuilder.Entity<Channel>().HasOne(ch => ch.Package).WithMany(p => p.Channels);
-            modelBuilder.Entity<Channel>().HasOne(ch => ch.Category).WithMany(p => p.Channels);
+            modelBuilder.Entity<Channel>().HasOne(ch => ch.Package).WithMany(p => p.Channels).OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Channel>().HasOne(ch => ch.Category).WithMany(p => p.Channels).OnDelete(DeleteBehavior.SetNull);
         }
 
         public DbSet<Channel> Channels { get; set; }

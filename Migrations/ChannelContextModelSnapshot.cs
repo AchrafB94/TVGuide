@@ -410,11 +410,13 @@ namespace TVGuide.Migrations
                 {
                     b.HasOne("TVGuide.Models.Category", "Category")
                         .WithMany("Channels")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("TVGuide.Models.Package", "Package")
                         .WithMany("Channels")
-                        .HasForeignKey("PackageId");
+                        .HasForeignKey("PackageId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Category");
 

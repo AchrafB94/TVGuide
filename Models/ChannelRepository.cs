@@ -15,7 +15,7 @@ public class ChannelRepository : IChannelRepository
         _context = appDbContext;
         _configuration = configuration;
         FileInfo file = new FileInfo("xml/programmes.xml");
-        DateTime fileDate = file.CreationTime;
+        DateTime fileDate = file.LastWriteTime;
         XDocument xdData;
 
         if (DateTime.Today > fileDate)
@@ -44,11 +44,10 @@ public class ChannelRepository : IChannelRepository
 
         xmlSources.Add(_configuration.GetValue<string>("Sources:Elcinema"));
         xmlSources.Add(_configuration.GetValue<string>("Sources:Bein"));
-        xmlSources.Add(_configuration.GetValue<string>("Sources:OSN"));
         xmlSources.Add(_configuration.GetValue<string>("Sources:Canal"));
         xmlSources.Add(_configuration.GetValue<string>("Sources:HDPlus"));
-        xmlSources.Add(_configuration.GetValue<string>("Sources:Mediaset"));
-        xmlSources.Add(_configuration.GetValue<string>("Sources:Rai"));
+        xmlSources.Add(_configuration.GetValue<string>("Sources:Tivu"));
+        xmlSources.Add(_configuration.GetValue<string>("Sources:Sky"));
         xmlSources.Add(_configuration.GetValue<string>("Sources:Movistar"));
 
         foreach (string source in xmlSources)
@@ -62,8 +61,8 @@ public class ChannelRepository : IChannelRepository
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 using (var streamReader = new StreamReader(stream))
                 {
-                    GZipStream zip = new GZipStream(stream, CompressionMode.Decompress);
-                    xdSource = XDocument.Load(zip);
+                    //GZipStream zip = new GZipStream(stream, CompressionMode.Decompress);
+                    xdSource = XDocument.Load(streamReader);
                     xdData.Root.Add(xdSource.Root?.Elements("programme"));
                 }
             }
