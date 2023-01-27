@@ -15,12 +15,11 @@
 @if(Model != null && Model.programme != null)
 {
               var firstProgramme = Model.programme;
-    <h2> <a asp-controller="Channels" asp-action="Details" asp-route-id="@Model.channel.Id" ><img src="@Model.channel.Logo" class="img-fluid" alt="" style="max-height:3rem; max-width: 10%;"></a> @localizer["Tonight"] @Model.channel.Name</h2>
+    <h2> <a asp-controller="Channels" asp-action="Details" asp-route-id="@Model.channel.Id" ><img src="@Model.channel.Logo" class="img-fluid" alt="" style="max-height:3rem; max-width: 10%;"></a> @localizer["Tonight"] @Model.channel.Name: @firstProgramme.Title (@firstProgramme.Start.ToString("HH:mm"))</h2>
   <center>
       <a asp-controller="Channels" asp-action="Details" asp-route-id="@Model.channel.Id" >
     <figure class="figure">
   <img src="@firstProgramme.Image" class="figure-img img-fluid rounded w-75" alt="@firstProgramme.Category">
-  <figcaption><h3 class="text-danger">@firstProgramme.Start.ToString("HH:mm") - @firstProgramme.Title</h3> </figcaption>
   <figcaption class="figure-caption">@firstProgramme.Description</figcaption>
 </figure></a>
 </center>
